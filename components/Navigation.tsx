@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import React from 'react';
@@ -6,6 +7,7 @@ import React from 'react';
 const Navigation: React.FC = () => {
   return (
     <>
+      <Image src='/gjak.jpg' height={15} width={15} alt='あtk' />
       <nav className='bg-white dark:bg-gray-800 shadow'>
         <div className='container py-4 px-6 mx-auto'>
           <div className='md:flex md:justify-between md:items-center'>
@@ -52,8 +54,9 @@ const Navigation: React.FC = () => {
               </div>
 
               <div className='flex items-center mt-4 md:mt-0'>
+                {/* ↓ベル */}
                 <button
-                  className='hidden mx-4 text-gray-600 hover:text-gray-700 focus:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400 dark:focus:text-gray-400 focus:outline-none transition-colors duration-200 md:block'
+                  className='hidden mx-4 text-red-600 hover:text-gray-700 focus:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400 dark:focus:text-gray-400 focus:outline-none transition-colors duration-200 md:block'
                   aria-label='show notifications'
                 >
                   <svg
@@ -77,7 +80,8 @@ const Navigation: React.FC = () => {
                   className='flex items-center focus:outline-none'
                   aria-label='toggle profile dropdown'
                 >
-                  <div className='overflow-hidden w-8 h-8 rounded-full border-2 border-gray-400'></div>
+                  {/* ↓avatar周り */}
+                  <div className='overflow-hidden w-8 h-8 rounded-full border-2 border-green-400'></div>
 
                   <h3 className='mx-2 text-sm font-medium text-gray-700 dark:text-gray-200 md:hidden'>
                     Khatab wedaa

@@ -1,8 +1,6 @@
 import { profile } from 'console';
 import { Formik } from 'formik';
-import Image from 'next/image';
 import Link from 'next/link';
-
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -35,7 +33,6 @@ const Login: React.FC = () => {
       <main className='p-8 my-10 mx-auto max-w-lg bg-white rounded-lg shadow-2xl md:p-12'>
         <section>
           <h3 className='text-2xl font-bold'>ようこそ Connect へ</h3>
-
           <p className='pt-2 text-gray-600'>ログイン</p>
         </section>
         <Formik

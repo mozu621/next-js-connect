@@ -1,8 +1,5 @@
 import { profile } from 'console';
 import { Formik } from 'formik';
-import Image from 'next/image';
-import Link from 'next/link';
-
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -23,7 +20,7 @@ import {
   fetchAsyncGetLikes,
 } from '../app/store/slices/portfolioSlice';
 
-const Login: React.FC = () => {
+const SignUp: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const router = useRouter();
   const profile = useSelector(selectProfile);
@@ -34,17 +31,20 @@ const Login: React.FC = () => {
     <>
       <main className='p-8 my-10 mx-auto max-w-lg bg-white rounded-lg shadow-2xl md:p-12'>
         <section>
-          <h3 className='text-2xl font-bold'>ようこそ Connect へ</h3>
-
-          <p className='pt-2 text-gray-600'>ログイン</p>
+          <h3 className='text-2xl font-bold'>Welcome to Startup</h3>
+          <p className='pt-2 text-gray-600'>Sign in to your account.</p>
         </section>
         <Formik
-          initialErrors={{ email: 'イニシャルエラーが表示されている入力してくださいrequired' }}
+          initialErrors={{ email: 'required' }}
           initialValues={{ email: '', password: '' }}
           onSubmit={async (values) => {
             await dispatch(fetchCredStart());
-            const result = await dispatch(fetchAsyncLogin(values));
-            if (fetchAsyncLogin.fulfilled.match(result)) {
+            const resultReg = await dispatch(fetchAsyncRegister(values));
+
+            if (fetchAsyncRegister.fulfilled.match(resultReg)) {
+              await dispatch(fetchAsyncLogin(values));
+              await dispatch(fetchAsyncCreateProf({ nickName: 'anonymous' }));
+
               await dispatch(fetchAsyncGetProfs());
               await dispatch(fetchAsyncGetMyProf());
               await dispatch(fetchAsyncGetPortfolios());
@@ -87,7 +87,7 @@ const Login: React.FC = () => {
                   className='py-2 px-4 font-bold bg-blue-500 hover:bg-blue-700 rounded-full '
                   type='submit'
                 >
-                  ログインする
+                  Submit
                 </button>
 
                 <div className='flex justify-end'>
@@ -98,15 +98,12 @@ const Login: React.FC = () => {
                     Forgot your password?
                   </a>
                 </div>
-                <div>アカウントをお持ちでない方</div>
-                <Link href='/signup' passHref>
-                  <button
-                    className='py-2 font-bold text-white bg-purple-600 hover:bg-purple-700 rounded shadow-lg hover:shadow-xl transition duration-200'
-                    type='submit'
-                  >
-                    会員登録
-                  </button>
-                </Link>
+                <button
+                  className='py-2 font-bold text-white bg-purple-600 hover:bg-purple-700 rounded shadow-lg hover:shadow-xl transition duration-200'
+                  type='submit'
+                >
+                  ログイン
+                </button>
               </form>
             </section>
           )}
@@ -116,4 +113,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default SignUp;

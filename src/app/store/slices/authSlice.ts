@@ -69,7 +69,7 @@ export const fetchAsyncGetMyProf = createAsyncThunk('profile/get', async () => {
       Authorization: `JWT ${localStorage.localJWT}`,
     },
   });
-  return res.data[0]; //djangoでフィルターをかけているおり、戻り値が配列嬢のため、①番目のデータを取り出している。
+  return res.data[0]; //djangoでフィルターをかけているおり、戻り値が配列のため、①番目のデータを取り出している。
 });
 
 export const fetchAsyncGetProfs = createAsyncThunk('profiles/get', async () => {
