@@ -19,6 +19,10 @@ export interface PROPS_LIKE {
   likePortfolio: number;
 }
 
+export interface PROPS_AVATER {
+  imgurl: string;
+}
+
 /*postSlice.ts*/
 export interface PROPS_NEWPORTFOLIO {
   title: string;

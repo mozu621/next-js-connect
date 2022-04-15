@@ -1,7 +1,8 @@
+import { profile } from 'console';
 import { Formik } from 'formik';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
+
 import { useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -31,8 +32,8 @@ const Home: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <div>{myprofile.nickName}</div>
-      <Avatar />
-
+      {console.log(myprofile.img)}
+      <Avatar imgurl={myprofile.img} />
       {portfolios.map((portfolio, i) => (
         <div key={i}>
           {portfolio.id}
@@ -45,6 +46,7 @@ const Home: NextPage = () => {
           </button>
 
           <Like likePortfolio={portfolio.id} />
+          {portfolio.img && <Avatar imgurl={portfolio.img} />}
         </div>
       ))}
 
@@ -58,6 +60,7 @@ const Home: NextPage = () => {
             {profile.nickName}
             {profile.profileUser}
           </button>
+          {profile.img && <Avatar imgurl={profile.img} />}
         </div>
       ))}
 

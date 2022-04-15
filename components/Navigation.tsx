@@ -1,13 +1,14 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-
-import React from 'react';
+import { useSelector } from 'react-redux';
+import { selectProfile } from '../src/app/store/slices/authSlice';
+import { Avatar } from './Avatar';
 
 const Navigation: React.FC = () => {
+  const myprofile = useSelector(selectProfile);
   return (
     <>
-      <Image src='/gjak.jpg' height={15} width={15} alt='あtk' />
       <nav className='bg-white dark:bg-gray-800 shadow'>
         <div className='container py-4 px-6 mx-auto'>
           <div className='md:flex md:justify-between md:items-center'>
@@ -45,12 +46,9 @@ const Navigation: React.FC = () => {
                 >
                   人気
                 </a>
-                <a
-                  href='#'
-                  className='py-1 px-2 mx-2 mt-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-700 rounded-md transition-colors duration-200 md:mt-0'
-                >
-                  ホーム
-                </a>
+                <div className='py-1 px-2 mx-2 mt-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-700 rounded-md transition-colors duration-200 md:mt-0'>
+                  <Link href='/'>ホーム</Link>
+                </div>
               </div>
 
               <div className='flex items-center mt-4 md:mt-0'>
@@ -81,7 +79,8 @@ const Navigation: React.FC = () => {
                   aria-label='toggle profile dropdown'
                 >
                   {/* ↓avatar周り */}
-                  <div className='overflow-hidden w-8 h-8 rounded-full border-2 border-green-400'></div>
+
+                  {myprofile.img && <Avatar imgurl={myprofile.img} />}
 
                   <h3 className='mx-2 text-sm font-medium text-gray-700 dark:text-gray-200 md:hidden'>
                     Khatab wedaa
