@@ -30,35 +30,6 @@ const Home: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <div>{myprofile.nickName}</div>
-
-      {portfolios.map((portfolio, i) => (
-        <div key={i}>
-          {portfolio.id}
-          <button
-            className='py-2 px-4 font-bold bg-blue-500 hover:bg-blue-700 rounded-full '
-            type='submit'
-          >
-            {portfolio.author}
-            {portfolio.title}
-          </button>
-
-          <Like likePortfolio={portfolio.id} />
-        </div>
-      ))}
-
-      {profiles.map((profile, i) => (
-        <div key={i}>
-          {profile.id}
-          <button
-            className='py-2 px-4 font-bold bg-blue-500 hover:bg-blue-700 rounded-full '
-            type='submit'
-          >
-            {profile.nickName}
-          </button>
-        </div>
-      ))}
-
       <Formik
         initialValues={{ title: '', img: null }}
         onSubmit={async (values) => {

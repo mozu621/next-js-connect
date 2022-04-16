@@ -29,14 +29,13 @@ export const Like: React.FC<PROPS_LIKE> = ({ likePortfolio }) => {
 
   //いいね機能
   const handlerLike = () => {
-    //配列
-    //オブジェクトからidを取り出した
+    //オブジェクトからidを取り出した(まだ配列！！)
     const deletelikeid = selectedLike.map((selectedlike) => selectedlike.id);
 
-    //オブジェクトからuserを取り出した
+    //オブジェクトからuserを取り出した(まだ配列！！)
     const likeusers = selectedLike.map((selectedlike) => selectedlike.likeUser);
 
-    //削除するidを取得する
+    //削除するidを取得する（ここでnember!!）
     const delete_like_id = deletelikeid[0];
 
     //いいね追加

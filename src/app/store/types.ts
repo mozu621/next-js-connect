@@ -1,3 +1,5 @@
+import { Url } from 'url';
+
 //authslice
 export interface PROPS_AUTHEN {
   email: string;
@@ -21,6 +23,12 @@ export interface PROPS_LIKE {
 
 export interface PROPS_AVATER {
   imgurl: string;
+}
+
+export interface PROPS_CARD {
+  id: number;
+  author: number;
+  img: string;
 }
 
 /*postSlice.ts*/
