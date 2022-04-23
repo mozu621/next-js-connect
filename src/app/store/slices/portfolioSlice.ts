@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { Like } from '../../../../components/Like';
+import { Like } from '../../../components/Like';
 import { AppState } from '../index';
 import { PROPS_LIKE, PROPS_NEWPORTFOLIO } from '../types';
 
@@ -82,6 +82,13 @@ export const fetchAsyncDeleteLike = createAsyncThunk(
     return res.data;
   },
 );
+
+const apiUrl = process.env.NEXT_PUBLIC_API_ENDOPOINT;
+export const consolefetch = async () => {
+  const res = await fetch(`${apiUrl}api/profile`);
+  const profiles = await res.json();
+  console.log(profiles);
+};
 
 //export const fetchAsyncPatchLiked = createAsyncThunk(
 //    "post/patch",

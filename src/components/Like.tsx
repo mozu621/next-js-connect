@@ -1,16 +1,16 @@
 import { ReactElement } from 'react';
 import { FaRegHeart } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
-import { AppDispatch } from '../src/app/store';
-import { selectProfile } from '../src/app/store/slices/authSlice';
+import { AppDispatch } from '../app/store';
+import { selectProfile } from '../app/store/slices/authSlice';
 import {
   fetchAsyncNewLike,
   selectLikes,
   fetchAsyncDeleteLike,
   fetchAsyncGetLikes,
-} from '../src/app/store/slices/portfolioSlice';
+} from '../app/store/slices/portfolioSlice';
 
-import { PROPS_LIKE } from '../src/app/store/types';
+import { PROPS_LIKE } from '../app/store/types';
 
 export const Like: React.FC<PROPS_LIKE> = ({ likePortfolio }) => {
   const dispatch: AppDispatch = useDispatch();

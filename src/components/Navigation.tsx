@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
-import { selectProfile } from '../src/app/store/slices/authSlice';
+import { selectProfile } from '../app/store/slices/authSlice';
 import { Avatar } from './Avatar';
 
 const Navigation: React.FC = () => {
@@ -15,7 +15,7 @@ const Navigation: React.FC = () => {
             <div className='flex justify-between items-center'>
               <div className='text-xl font-semibold text-gray-700'>
                 <Link href='/'>
-                  <a className='text-2xl font-bold text-gray-800 hover:text-gray-700 dark:text-white dark:hover:text-gray-300 transition-colors duration-200 lg:text-3xl'>
+                  <a className='text-2xl font-bold text-red-800 hover:text-gray-700 dark:text-white dark:hover:text-gray-300 transition-colors duration-200 lg:text-3xl'>
                     Connect
                   </a>
                 </Link>
@@ -80,7 +80,7 @@ const Navigation: React.FC = () => {
                 >
                   {/* ↓avatar周り */}
 
-                  {myprofile.img && <Avatar imgurl={myprofile.img} />}
+                  {myprofile.img && <Avatar imgurl={myprofile.img} profileid={myprofile.id} />}
 
                   <h3 className='mx-2 text-sm font-medium text-gray-700 dark:text-gray-200 md:hidden'>
                     Khatab wedaa

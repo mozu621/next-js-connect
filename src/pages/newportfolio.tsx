@@ -1,12 +1,8 @@
 import { Formik } from 'formik';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
-import { useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { Like } from '../../components/Like';
-import styles from '../../styles/Home.module.css';
 import { AppDispatch } from '../app/store';
 import { selectProfile, selectProfiles } from '../app/store/slices/authSlice';
 import {

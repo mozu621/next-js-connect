@@ -6,18 +6,19 @@ import Head from 'next/head';
 import { useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { Avatar } from '../../components/Avatar';
-import { Card } from '../../components/Card';
-import { Like } from '../../components/Like';
 import styles from '../../styles/Home.module.css';
 import { AppDispatch } from '../app/store';
 import { selectProfile, selectProfiles } from '../app/store/slices/authSlice';
 import {
+  consolefetch,
   fetchAsyncNewPortfolio,
   fetchPostEnd,
   fetchPostStart,
   selectPortfolios,
 } from '../app/store/slices/portfolioSlice';
+import { Avatar } from '../components/Avatar';
+import { Card } from '../components/Card';
+import { Like } from '../components/Like';
 
 const Home: NextPage = () => {
   const myprofile = useSelector(selectProfile);
@@ -37,7 +38,7 @@ const Home: NextPage = () => {
           key={i}
           className='overflow-hidden mx-auto max-w-2xl bg-white dark:bg-gray-800 rounded-lg shadow-md'
         >
-          <Card id={portfolio.id} author={portfolio.author} img={portfolio.img} />
+          <Card portfolioid={portfolio.id} author={portfolio.author} portfolioimg={portfolio.img} />
         </div>
       ))}
     </>
