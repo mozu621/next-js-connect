@@ -25,18 +25,17 @@ export interface PROPS_NEWPORTFOLIO {
 //  current: number[];
 //  new: number;
 //}
-export interface PROPS_COMMENT {
-  text: string;
-  post: number;
+export interface PROPS_COMMENTLIST {
+  commentPortfolio: number;
 }
 /*Post.tsx*/
-export interface PROPS_POST {
-  postId: number;
-  loginId: number;
-  userPost: number;
+export interface PROPS_PORTFOLIO {
+  id: number;
   title: string;
-  imageUrl: string;
-  liked: number[];
+  url: string;
+  author: number;
+  created_on: string;
+  img: string;
 }
 
 export interface PROPS_NICKNAME {
@@ -67,4 +66,15 @@ export interface PROFILE {
 
 export interface Params extends ParsedUrlQuery {
   id: string;
+}
+
+export interface PROPS_COMMENT {
+  text: string;
+  commentUser: number;
+  commentPortfolio: number;
+}
+
+export interface COMMENT {
+  text: string;
+  commentPortfolio: number;
 }

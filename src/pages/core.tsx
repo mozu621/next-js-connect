@@ -1,30 +1,50 @@
 import { profile } from 'console';
 import { Formik } from 'formik';
+
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import Link from 'next/link';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import Modal from 'react-modal';
 
 import { useSelector, useDispatch } from 'react-redux';
 import styles from '../../styles/Home.module.css';
 import { AppDispatch } from '../app/store';
 import { selectProfile, selectProfiles } from '../app/store/slices/authSlice';
 import {
-  consolefetch,
   fetchAsyncNewPortfolio,
   fetchPostEnd,
   fetchPostStart,
   selectPortfolios,
+  selectOpenNewCommnet,
+  resetOpenNewComment,
+  fetchAsyncPostComment,
 } from '../app/store/slices/portfolioSlice';
 import { Avatar } from '../components/Avatar';
 import { Card } from '../components/Card';
 import { Like } from '../components/Like';
+
+Modal.setAppElement('#__next');
 
 const Home: NextPage = () => {
   const myprofile = useSelector(selectProfile);
   const profiles = useSelector(selectProfiles);
   const portfolios = useSelector(selectPortfolios);
   const dispatch: AppDispatch = useDispatch();
+  const [modalData, setModalData] = useState(0);
+  const openComment = useSelector(selectOpenNewCommnet);
+
+  const [text, setText] = useState('');
+
+  const postComment = async (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    const packet = { text: text, commentPortfolio: modalData };
+    await dispatch(fetchAsyncPostComment(packet));
+
+    await dispatch(resetOpenNewComment());
+    setText('');
+  };
 
   return (
     <>
@@ -38,7 +58,15 @@ const Home: NextPage = () => {
           key={i}
           className='overflow-hidden mx-auto max-w-2xl bg-white dark:bg-gray-800 rounded-lg shadow-md'
         >
-          <Card portfolioid={portfolio.id} author={portfolio.author} portfolioimg={portfolio.img} />
+          <Link href={`/portfolio/${portfolio.id}`} passHref>
+            <div>
+              <Card
+                portfolioid={portfolio.id}
+                author={portfolio.author}
+                portfolioimg={portfolio.img}
+              />
+            </div>
+          </Link>
         </div>
       ))}
     </>

@@ -66,11 +66,6 @@ export const Like: React.FC<PROPS_LIKE> = ({ likePortfolio }) => {
         <FaRegHeart />
         <div>{likeUsersOnPortfolio.length}</div>
       </button>
-      {likeUsersOnPortfolio.map((like, i) => (
-        <div key={i}>
-          <div>{like.likeUser}</div>
-        </div>
-      ))}
     </>
   );
 };

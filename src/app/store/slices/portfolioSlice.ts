@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Like } from '../../../components/Like';
 import { AppState } from '../index';
-import { PROPS_LIKE, PROPS_NEWPORTFOLIO } from '../types';
+import { PROPS_LIKE, PROPS_NEWPORTFOLIO, COMMENT } from '../types';
 
 const apiUrlPortfolio = `${process.env.NEXT_PUBLIC_API_ENDOPOINT}api/portfolio/`;
 const apiUrlComment = `${process.env.NEXT_PUBLIC_API_ENDOPOINT}api/comment/`;
@@ -33,18 +33,6 @@ export const fetchAsyncNewPortfolio = createAsyncThunk(
     return res.data;
   },
 );
-
-//export const fetchAsyncGetComments = createAsyncThunk(
-//    "comment/get",
-//    async () => {
-//        const res = await axios.get(apiUrlComment, {
-//            headers: {
-//                Authorization: `JWT ${localStorage.localJWT}`,
-//            },
-//        });
-//        return res.data;
-//    }
-//);
 
 //いいね作成
 export const fetchAsyncNewLike = createAsyncThunk(
@@ -83,13 +71,6 @@ export const fetchAsyncDeleteLike = createAsyncThunk(
   },
 );
 
-const apiUrl = process.env.NEXT_PUBLIC_API_ENDOPOINT;
-export const consolefetch = async () => {
-  const res = await fetch(`${apiUrl}api/profile`);
-  const profiles = await res.json();
-  console.log(profiles);
-};
-
 //export const fetchAsyncPatchLiked = createAsyncThunk(
 //    "post/patch",
 //    async (liked: PROPS_LIKED) => {
@@ -127,28 +108,34 @@ export const consolefetch = async () => {
 //    }
 //);
 //
-//export const fetchAsyncGetComments = createAsyncThunk(
-//    "comment/get",
-//    async () => {
-//        const res = await axios.get(apiUrlComment, {
-//            headers: {
-//                Authorization: `JWT ${localStorage.localJWT}`,
-//            },
-//        });
-//        return res.data;
-//    }
-//);
-//
-//export const fetchAsyncPostComment = createAsyncThunk(
-//    "comment/post",
-//    async (comment: PROPS_COMMENT) => {
-//        const res = await axios.post(apiUrlComment, comment, {
-//            headers: {
-//                Authorization: `JWT ${localStorage.localJWT}`,
-//            },
-//        });
-//        return res.data;
-//    }
+export const fetchAsyncGetComments = createAsyncThunk('comment/get', async () => {
+  const res = await axios.get(apiUrlComment, {
+    headers: {
+      Authorization: `JWT ${localStorage.localJWT}`,
+    },
+  });
+  return res.data;
+});
+
+export const fetchAsyncPostComment = createAsyncThunk('comment/post', async (comment: COMMENT) => {
+  const res = await axios.post(apiUrlComment, comment, {
+    headers: {
+      Authorization: `JWT ${localStorage.localJWT}`,
+    },
+  });
+  return res.data;
+});
+
+//export const fetchAsyncDeleteComment = createAsyncThunk(
+//  'comment/delete',
+//  async (comment: PROPS_COMMENT) => {
+//    const res = await axios.post(apiUrlComment, comment, {
+//      headers: {
+//        Authorization: `JWT ${localStorage.localJWT}`,
+//      },
+//    });
+//    return res.data;
+//  },
 //);
 
 export const portfolioSlice = createSlice({
@@ -156,6 +143,7 @@ export const portfolioSlice = createSlice({
   initialState: {
     isLoadingPost: false,
     openNewPost: false, //新規登録のモーダルを表示させるSTATE
+    openNewComment: false,
     portfolios: [
       {
         id: 0,
@@ -196,6 +184,12 @@ export const portfolioSlice = createSlice({
     resetOpenNewPost(state) {
       state.openNewPost = false;
     },
+    setOpenNewComment(state) {
+      state.openNewComment = true;
+    },
+    resetOpenNewComment(state) {
+      state.openNewComment = false;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncGetPortfolios.fulfilled, (state, action) => {
@@ -228,18 +222,18 @@ export const portfolioSlice = createSlice({
         likes: [...state.likes, action.payload],
       };
     });
-    //    builder.addCase(fetchAsyncGetComments.fulfilled, (state, action) => {
-    //        return {
-    //            ...state,
-    //            comments: action.payload,
-    //        };
-    //    });
-    //    builder.addCase(fetchAsyncPostComment.fulfilled, (state, action) => {
-    //        return {
-    //            ...state,
-    //            comments: [...state.comments, action.payload],
-    //        };
-    //    });
+    builder.addCase(fetchAsyncGetComments.fulfilled, (state, action) => {
+      return {
+        ...state,
+        comments: action.payload,
+      };
+    });
+    builder.addCase(fetchAsyncPostComment.fulfilled, (state, action) => {
+      return {
+        ...state,
+        comments: [...state.comments, action.payload],
+      };
+    });
     //    builder.addCase(fetchAsyncPatchLiked.fulfilled, (state, action) => {
     //        return {
     //            ...state,
@@ -254,9 +248,13 @@ export const {
   //関数を外部で使えるようにしている
   fetchPostStart,
   fetchPostEnd,
+  setOpenNewComment,
+  resetOpenNewComment,
 } = portfolioSlice.actions;
 
 export const selectPortfolios = (state: AppState) => state.portfolio.portfolios;
 export const selectLikes = (state: AppState) => state.portfolio.likes;
+export const selectComments = (state: AppState) => state.portfolio.comments;
+export const selectOpenNewCommnet = (state: AppState) => state.portfolio.openNewComment;
 
 export default portfolioSlice.reducer;

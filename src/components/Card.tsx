@@ -1,20 +1,33 @@
 import React from 'react';
+import { useState } from 'react';
+import { FaRegComment } from 'react-icons/fa';
+import Modal from 'react-modal';
 import { useSelector, useDispatch } from 'react-redux';
+import { AppDispatch } from '../app/store';
 import { selectProfile, selectProfiles } from '../app/store/slices/authSlice';
-import { selectPortfolios } from '../app/store/slices/portfolioSlice';
+import {
+  selectPortfolios,
+  selectComments,
+  selectOpenNewCommnet,
+  resetOpenNewComment,
+  fetchAsyncPostComment,
+  setOpenNewComment,
+} from '../app/store/slices/portfolioSlice';
 import { PROPS_CARD } from '../app/store/types';
 import { Avatar } from './Avatar';
 import { Like } from './Like';
 
 export const Card: React.FC<PROPS_CARD> = ({ portfolioid, author, portfolioimg }) => {
+  const dispatch: AppDispatch = useDispatch();
   const profiles = useSelector(selectProfiles);
-  const portfolios = useSelector(selectPortfolios);
+  const comments = useSelector(selectComments);
+  const openComment = useSelector(selectOpenNewCommnet);
 
   //avatarに渡すprofile情報を定義した
   const avatarprofile = profiles.filter((profile) => {
     return profile.profileUser === author;
   });
-  //avatarに渡す　imgのurl　profile情報に遷移するための　id を定義した
+  //avatarに渡すimgのurlprofile情報に遷移するためのidを定義した
   const avatarprofileimgs = avatarprofile.map((obj) => obj.img);
   const avatarprofileids = avatarprofile.map((obj) => obj.id);
   const avatarnicknnames = avatarprofile.map((obj) => obj.nickName);
@@ -22,6 +35,10 @@ export const Card: React.FC<PROPS_CARD> = ({ portfolioid, author, portfolioimg }
   const avatarprofileimg = avatarprofileimgs[0];
   const avatarprofileid = avatarprofileids[0];
   const avatarnicknname = avatarnicknnames[0];
+
+  const commentsOnPortfolio = comments.filter((comment) => {
+    return comment.commentPortfolio === portfolioid;
+  });
 
   return (
     <>
@@ -32,7 +49,7 @@ export const Card: React.FC<PROPS_CARD> = ({ portfolioid, author, portfolioimg }
           <div className='p-6'>
             <div>
               <span className='text-xs font-medium text-blue-600 dark:text-blue-400 uppercase'>
-                Product
+                筆者は{author}
               </span>
               <a
                 href='#'
@@ -50,6 +67,9 @@ export const Card: React.FC<PROPS_CARD> = ({ portfolioid, author, portfolioimg }
             <div className='mt-4'>
               <div className='flex items-center'>
                 <div className='flex items-center'>
+                  <FaRegComment />
+                  {portfolioid}
+                  <div>{commentsOnPortfolio.length}</div>
                   <Like likePortfolio={portfolioid} />
                   {avatarprofileimg && (
                     <Avatar imgurl={avatarprofileimg} profileid={avatarprofileid} />
@@ -58,6 +78,7 @@ export const Card: React.FC<PROPS_CARD> = ({ portfolioid, author, portfolioimg }
                     {avatarnicknname}
                   </a>
                 </div>
+
                 <span className='mx-1 text-xs text-gray-600 dark:text-gray-300'>21 SEP 2015</span>
               </div>
             </div>
