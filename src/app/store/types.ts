@@ -33,6 +33,7 @@ export interface PROPS_PORTFOLIO {
   id: number;
   title: string;
   url: string;
+  content: string;
   author: number;
   created_on: string;
   img: string;
@@ -60,6 +61,7 @@ export interface PROPS_CARD {
 export interface PROFILE {
   id: number;
   nickName: string;
+  introduction: string;
   profileUser: number;
   img: File | null;
 }
@@ -77,4 +79,17 @@ export interface PROPS_COMMENT {
 export interface COMMENT {
   text: string;
   commentPortfolio: number;
+}
+
+export type PortfolioList = Array<PROPS_PORTFOLIO>;
+
+export interface TAG {
+  tagname: string;
+  tagPortfolio: number;
+}
+
+export interface PROPS_TAG {
+  id: number;
+  tagname: string;
+  tagPortfolio: number;
 }

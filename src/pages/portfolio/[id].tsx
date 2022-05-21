@@ -7,8 +7,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
 
 import { fetchAsyncGetProfs } from '../../app/store/slices/authSlice';
-import { selectComments, fetchAsyncPostComment } from '../../app/store/slices/portfolioSlice';
-import { PROPS_PORTFOLIO } from '../../app/store/types';
+import {
+  selectComments,
+  fetchAsyncPostComment,
+  fetchAsyncPostTag,
+  selectTags,
+} from '../../app/store/slices/portfolioSlice';
+import { PROPS_PORTFOLIO, TAG } from '../../app/store/types';
 import { Comment } from '../../components/comment';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_ENDOPOINT;
@@ -20,9 +25,14 @@ interface PortfolioProps {
 const Portfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
   const dispatch: AppDispatch = useDispatch();
   const comments = useSelector(selectComments);
+  const tags = useSelector(selectTags);
 
   const commentsOnPortfolio = comments.filter((comment) => {
     return comment.commentPortfolio === portfolio.id;
+  });
+
+  const tagsOnPortfolio = tags.filter((tag) => {
+    return tag.tagPortfolio === portfolio.id;
   });
 
   const [text, setText] = useState('');
@@ -34,10 +44,23 @@ const Portfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
     setText('');
   };
 
+  const [tagname, setTagname] = useState('');
+  const postTag = async (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    const packet = { tagname: tagname, tagPortfolio: portfolio.id };
+    await dispatch(fetchAsyncPostTag(packet));
+    setTagname('');
+  };
+
   return (
     <>
+      <img className='object-cover w-full h-64' src={portfolio.img} alt='Article' />
+      {portfolio.id}#######
       {portfolio.title}
       {portfolio.author}です
+      {tagsOnPortfolio.map((tag, i) => (
+        <div key={i}>{tag.tagname}</div>
+      ))}
       <form>
         <input
           type='text'
@@ -52,6 +75,20 @@ const Portfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
           onClick={postComment}
         >
           Post
+        </button>
+        <input
+          type='text'
+          placeholder='add a tag'
+          value={tagname}
+          onChange={(e) => setTagname(e.target.value)}
+        />
+        <button
+          className='py-2 px-4 font-bold bg-red-500 hover:bg-red-700 rounded-full '
+          disabled={!tagname.length}
+          type='button'
+          onClick={postTag}
+        >
+          tagcreate
         </button>
       </form>
       {commentsOnPortfolio.map((comment, i) => (

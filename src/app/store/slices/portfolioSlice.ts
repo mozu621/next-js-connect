@@ -2,10 +2,11 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Like } from '../../../components/Like';
 import { AppState } from '../index';
-import { PROPS_LIKE, PROPS_NEWPORTFOLIO, COMMENT } from '../types';
+import { PROPS_LIKE, PROPS_NEWPORTFOLIO, COMMENT, TAG } from '../types';
 
 const apiUrlPortfolio = `${process.env.NEXT_PUBLIC_API_ENDOPOINT}api/portfolio/`;
 const apiUrlComment = `${process.env.NEXT_PUBLIC_API_ENDOPOINT}api/comment/`;
+const apiUrlTag = `${process.env.NEXT_PUBLIC_API_ENDOPOINT}api/tag/`;
 const apiUrlLike = `${process.env.NEXT_PUBLIC_API_ENDOPOINT}api/like/`;
 
 export const fetchAsyncGetPortfolios = createAsyncThunk('portfolio/get', async () => {
@@ -126,6 +127,24 @@ export const fetchAsyncPostComment = createAsyncThunk('comment/post', async (com
   return res.data;
 });
 
+export const fetchAsyncGetTags = createAsyncThunk('tag/get', async () => {
+  const res = await axios.get(apiUrlTag, {
+    headers: {
+      Authorization: `JWT ${localStorage.localJWT}`,
+    },
+  });
+  return res.data;
+});
+
+export const fetchAsyncPostTag = createAsyncThunk('tag/post', async (tag: TAG) => {
+  const res = await axios.post(apiUrlTag, tag, {
+    headers: {
+      Authorization: `JWT ${localStorage.localJWT}`,
+    },
+  });
+  return res.data;
+});
+
 //export const fetchAsyncDeleteComment = createAsyncThunk(
 //  'comment/delete',
 //  async (comment: PROPS_COMMENT) => {
@@ -149,6 +168,7 @@ export const portfolioSlice = createSlice({
         id: 0,
         title: '',
         url: '',
+        content: '',
         author: 0,
         created_on: '',
         img: '',
@@ -168,6 +188,13 @@ export const portfolioSlice = createSlice({
         text: '',
         commentUser: 0,
         commentPortfolio: 0,
+      },
+    ],
+    tags: [
+      {
+        id: 0,
+        tagname: '',
+        tagPortfolio: 0,
       },
     ],
   },
@@ -234,6 +261,21 @@ export const portfolioSlice = createSlice({
         comments: [...state.comments, action.payload],
       };
     });
+
+    builder.addCase(fetchAsyncGetTags.fulfilled, (state, action) => {
+      return {
+        ...state,
+        tags: action.payload,
+      };
+    });
+
+    builder.addCase(fetchAsyncPostTag.fulfilled, (state, action) => {
+      return {
+        ...state,
+        tags: [...state.tags, action.payload],
+      };
+    });
+
     //    builder.addCase(fetchAsyncPatchLiked.fulfilled, (state, action) => {
     //        return {
     //            ...state,
@@ -256,5 +298,6 @@ export const selectPortfolios = (state: AppState) => state.portfolio.portfolios;
 export const selectLikes = (state: AppState) => state.portfolio.likes;
 export const selectComments = (state: AppState) => state.portfolio.comments;
 export const selectOpenNewCommnet = (state: AppState) => state.portfolio.openNewComment;
+export const selectTags = (state: AppState) => state.portfolio.tags;
 
 export default portfolioSlice.reducer;

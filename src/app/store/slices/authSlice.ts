@@ -91,6 +91,7 @@ export const authSlice = createSlice({
     myprofile: {
       id: 0,
       nickName: '',
+      introduction: '',
       profileUser: 0,
       created_on: '',
       img: '',
@@ -99,6 +100,7 @@ export const authSlice = createSlice({
       {
         id: 0,
         nickName: '',
+        Introduction: '',
         profileUser: 0,
         created_on: '',
         img: '',

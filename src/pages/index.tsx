@@ -22,6 +22,7 @@ import {
   selectPortfolios,
   fetchAsyncGetLikes,
   fetchAsyncGetComments,
+  fetchAsyncGetTags,
 } from '../app/store/slices/portfolioSlice';
 
 const Login: React.FC = () => {
@@ -51,6 +52,7 @@ const Login: React.FC = () => {
               await dispatch(fetchAsyncGetPortfolios());
               await dispatch(fetchAsyncGetLikes());
               await dispatch(fetchAsyncGetComments());
+              await dispatch(fetchAsyncGetTags());
               await router.push('/core');
             }
             await dispatch(fetchCredEnd());

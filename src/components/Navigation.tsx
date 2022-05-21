@@ -7,6 +7,7 @@ import { Avatar } from './Avatar';
 
 const Navigation: React.FC = () => {
   const myprofile = useSelector(selectProfile);
+
   return (
     <>
       <nav className='bg-white dark:bg-gray-800 shadow'>
