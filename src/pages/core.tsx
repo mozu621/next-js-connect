@@ -98,19 +98,18 @@ const Home: NextPage = () => {
           key={i}
           className='overflow-hidden mx-auto max-w-2xl bg-white dark:bg-gray-800 rounded-lg shadow-md'
         >
-          <Link href={`/portfolio/${portfolio.id}`} passHref>
-            <div>
-              <Card
-                portfolioid={portfolio.id}
-                author={portfolio.author}
-                portfolioimg={portfolio.img}
-              />
-            </div>
-          </Link>
-          {portfolio.title}タイトル
+          <div>
+            <Card
+              title={portfolio.title}
+              portfolioid={portfolio.id}
+              author={portfolio.author}
+              portfolioimg={portfolio.img}
+            />
+          </div>
+          {/*           {portfolio.title}タイトル
           {portfolio.id}iddesu
           {portfolio.author}authordesu
-          {portfolio.img}imgdesu
+          {portfolio.img}imgdesu */}
         </div>
       ))}
     </>

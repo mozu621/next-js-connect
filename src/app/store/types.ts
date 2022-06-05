@@ -53,6 +53,7 @@ export interface PROPS_AVATER {
 }
 
 export interface PROPS_CARD {
+  title: string;
   portfolioid: number;
   author: number;
   portfolioimg: string;
@@ -91,5 +92,9 @@ export interface TAG {
 export interface PROPS_TAG {
   id: number;
   tagname: string;
-  tagPortfolio: number;
+  tagPortfolio: PROPS_PORTFOLIO;
+}
+
+export interface PROPS_LIKEUSER {
+  likeuser: number;
 }

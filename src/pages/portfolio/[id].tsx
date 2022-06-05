@@ -11,10 +11,12 @@ import {
   selectComments,
   fetchAsyncPostComment,
   fetchAsyncPostTag,
+  fetchAsyncGetTags,
   selectTags,
 } from '../../app/store/slices/portfolioSlice';
 import { PROPS_PORTFOLIO, TAG } from '../../app/store/types';
-import { Comment } from '../../components/comment';
+import { Comment } from '../../components/Comment';
+import { Tag } from '../../components/Tag';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_ENDOPOINT;
 
@@ -32,7 +34,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
   });
 
   const tagsOnPortfolio = tags.filter((tag) => {
-    return tag.tagPortfolio === portfolio.id;
+    return tag.tagPortfolio.id === portfolio.id;
   });
 
   const [text, setText] = useState('');
@@ -45,21 +47,23 @@ const Portfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
   };
 
   const [tagname, setTagname] = useState('');
+
   const postTag = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     const packet = { tagname: tagname, tagPortfolio: portfolio.id };
     await dispatch(fetchAsyncPostTag(packet));
+    await dispatch(fetchAsyncGetTags());
     setTagname('');
   };
 
   return (
     <>
       <img className='object-cover w-full h-64' src={portfolio.img} alt='Article' />
-      {portfolio.id}#######
-      {portfolio.title}
-      {portfolio.author}です
+      タイトルは{portfolio.title}です
       {tagsOnPortfolio.map((tag, i) => (
-        <div key={i}>{tag.tagname}</div>
+        <div key={i}>
+          <Tag id={tag.id} tagPortfolio={tag.tagPortfolio} tagname={tag.tagname} />
+        </div>
       ))}
       <form>
         <input

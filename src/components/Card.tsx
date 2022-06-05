@@ -1,4 +1,4 @@
-import React from 'react';
+import Link from 'next/link';
 import { useState } from 'react';
 import { FaRegComment } from 'react-icons/fa';
 import Modal from 'react-modal';
@@ -17,7 +17,7 @@ import { PROPS_CARD } from '../app/store/types';
 import { Avatar } from './Avatar';
 import { Like } from './Like';
 
-export const Card: React.FC<PROPS_CARD> = ({ portfolioid, author, portfolioimg }) => {
+export const Card: React.FC<PROPS_CARD> = ({ title, portfolioid, author, portfolioimg }) => {
   const dispatch: AppDispatch = useDispatch();
   const profiles = useSelector(selectProfiles);
   const comments = useSelector(selectComments);
@@ -48,15 +48,14 @@ export const Card: React.FC<PROPS_CARD> = ({ portfolioid, author, portfolioimg }
 
           <div className='p-6'>
             <div>
-              <span className='text-xs font-medium text-blue-600 dark:text-blue-400 uppercase'>
-                筆者は{author}
-              </span>
-              <a
-                href='#'
-                className='block mt-2 text-2xl font-semibold text-gray-800 hover:text-gray-600 dark:text-white hover:underline transition-colors duration-200'
-              >
-                I Built A Successful Blog In One Year
-              </a>
+              <Link href={`/portfolio/${portfolioid}`} passHref>
+                <a
+                  href='#'
+                  className='block mt-2 text-2xl font-semibold text-blue-600 hover:text-blue-500 dark:text-white hover:underline transition-colors duration-200'
+                >
+                  {title}
+                </a>
+              </Link>
               <p className='mt-2 text-sm text-gray-600 dark:text-gray-400'>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Molestie parturient et sem
                 ipsum volutpat vel. Natoque sem et aliquam mauris egestas quam volutpat viverra. In
