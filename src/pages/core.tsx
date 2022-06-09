@@ -93,12 +93,9 @@ const Home: NextPage = () => {
         </div>
       </section>
 
-      {portfolioList.map((portfolio, i) => (
-        <div
-          key={i}
-          className='overflow-hidden mx-auto max-w-2xl bg-white dark:bg-gray-800 rounded-lg shadow-md'
-        >
-          <div>
+      <div className='grid grid-cols-3 gap-2'>
+        {portfolioList.map((portfolio, i) => (
+          <div key={i}>
             <Card
               title={portfolio.title}
               portfolioid={portfolio.id}
@@ -106,12 +103,8 @@ const Home: NextPage = () => {
               portfolioimg={portfolio.img}
             />
           </div>
-          {/*           {portfolio.title}タイトル
-          {portfolio.id}iddesu
-          {portfolio.author}authordesu
-          {portfolio.img}imgdesu */}
-        </div>
-      ))}
+        ))}
+      </div>
     </>
   );
 };

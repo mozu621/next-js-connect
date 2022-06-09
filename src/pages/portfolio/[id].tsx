@@ -60,11 +60,13 @@ const Portfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
     <>
       <img className='object-cover w-full h-64' src={portfolio.img} alt='Article' />
       タイトルは{portfolio.title}です
-      {tagsOnPortfolio.map((tag, i) => (
-        <div key={i}>
-          <Tag id={tag.id} tagPortfolio={tag.tagPortfolio} tagname={tag.tagname} />
-        </div>
-      ))}
+      <div className='flex '>
+        {tagsOnPortfolio.map((tag, i) => (
+          <div key={i} className='p-0.5'>
+            <Tag id={tag.id} tagPortfolio={tag.tagPortfolio} tagname={tag.tagname} />
+          </div>
+        ))}
+      </div>
       <form>
         <input
           type='text'

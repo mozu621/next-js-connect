@@ -43,8 +43,8 @@ export const Card: React.FC<PROPS_CARD> = ({ title, portfolioid, author, portfol
   return (
     <>
       {portfolioimg && (
-        <div>
-          <img className='object-cover w-full h-64' src={portfolioimg} alt='Article' />
+        <div className='hover: overflow-hidden col-span-1 p-2 mx-auto max-w-2xl bg-stone-50 hover:bg-zinc-100 dark:bg-gray-800 rounded-lg drop-shadow-md hover:drop-shadow-2xl'>
+          <img className='object-cover w-full h-64 rounded-lg' src={portfolioimg} alt='Article' />
 
           <div className='p-6'>
             <div>
