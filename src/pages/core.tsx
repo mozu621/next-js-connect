@@ -61,15 +61,6 @@ const Home: NextPage = () => {
   };
   //↑ここまで検索機能
 
-  const postComment = async (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-    const packet = { text: text, commentPortfolio: modalData };
-    await dispatch(fetchAsyncPostComment(packet));
-
-    await dispatch(resetOpenNewComment());
-    setText('');
-  };
-
   return (
     <>
       <Head>

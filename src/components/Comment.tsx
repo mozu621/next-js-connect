@@ -1,7 +1,8 @@
 import React from 'react';
+import { FaRegTrashAlt } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch } from '../app/store';
-import { selectProfiles } from '../app/store/slices/authSlice';
+import { selectProfiles, selectProfile } from '../app/store/slices/authSlice';
 import {
   selectPortfolios,
   selectComments,
@@ -9,14 +10,22 @@ import {
   resetOpenNewComment,
   fetchAsyncPostComment,
   setOpenNewComment,
+  fetchAsyncDeleteComment,
+  fetchAsyncGetComments,
 } from '../app/store/slices/portfolioSlice';
 import { PROPS_COMMENT } from '../app/store/types';
 import { Avatar } from './Avatar';
 
-export const Comment: React.FC<PROPS_COMMENT> = ({ text, commentPortfolio, commentUser }) => {
+export const Comment: React.FC<PROPS_COMMENT> = ({
+  commentid,
+  text,
+  commentPortfolio,
+  commentUser,
+}) => {
   const dispatch: AppDispatch = useDispatch();
   const profiles = useSelector(selectProfiles);
   const comments = useSelector(selectComments);
+  const myprofile = useSelector(selectProfile);
 
   const commentUserprofile = profiles.filter((profile) => {
     return profile.profileUser === commentUser;
@@ -29,6 +38,22 @@ export const Comment: React.FC<PROPS_COMMENT> = ({ text, commentPortfolio, comme
   const commentUserprofileimg = commentUserprofileimgs[0];
   const commentUserprofileid = commentUserprofileids[0];
   const commentUsernicknname = commentUsernicknnames[0];
+
+  //コメント削除機能
+
+  //コメントした人がログイン中のユーザーであれば、削除ボタンを表示
+
+  //自分がしたコメントを表示する。
+  const mycreatecomment = comments.filter((comment) => {
+    comment.commentUser === myprofile.profileUser;
+  });
+
+  //削除ボタンが押された時に、コメントidを送付して削除する
+  const deleteComment = async () => {
+    const packet = commentid;
+    await dispatch(fetchAsyncDeleteComment(packet));
+    await dispatch(fetchAsyncGetComments());
+  };
 
   return (
     <>
@@ -48,6 +73,11 @@ export const Comment: React.FC<PROPS_COMMENT> = ({ text, commentPortfolio, comme
               {commentUsernicknname}
             </a>
           </div>
+          {myprofile.profileUser === commentUser && (
+            <button className='text-rose-500' onClick={deleteComment}>
+              <FaRegTrashAlt />
+            </button>
+          )}
         </div>
       </div>
     </>

@@ -100,6 +100,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
       {commentsOnPortfolio.map((comment, i) => (
         <div key={i}>
           <Comment
+            commentid={comment.id}
             commentUser={comment.commentUser}
             text={comment.text}
             commentPortfolio={portfolio.id}

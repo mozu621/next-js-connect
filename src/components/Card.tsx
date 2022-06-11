@@ -67,7 +67,6 @@ export const Card: React.FC<PROPS_CARD> = ({ title, portfolioid, author, portfol
               <div className='flex items-center'>
                 <div className='flex items-center'>
                   <FaRegComment />
-                  {portfolioid}
                   <div>{commentsOnPortfolio.length}</div>
                   <Like likePortfolio={portfolioid} />
                   {avatarprofileimg && (

@@ -131,6 +131,19 @@ export const fetchAsyncPostComment = createAsyncThunk('comment/post', async (com
   return res.data;
 });
 
+export const fetchAsyncDeleteComment = createAsyncThunk(
+  'comment/delete',
+  async (commentid: number) => {
+    const res = await axios.delete(`${apiUrlComment}${commentid}/`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `JWT ${localStorage.localJWT}`,
+      },
+    });
+    return res.data;
+  },
+);
+
 export const fetchAsyncGetTags = createAsyncThunk('tag/get', async () => {
   const res = await axios.get(apiUrlTag, {
     headers: {
@@ -160,18 +173,6 @@ export const fetchAsyncGetFilterTags = createAsyncThunk(
     return res.data;
   },
 );
-
-//export const fetchAsyncDeleteComment = createAsyncThunk(
-//  'comment/delete',
-//  async (comment: PROPS_COMMENT) => {
-//    const res = await axios.post(apiUrlComment, comment, {
-//      headers: {
-//        Authorization: `JWT ${localStorage.localJWT}`,
-//      },
-//    });
-//    return res.data;
-//  },
-//);
 
 export const portfolioSlice = createSlice({
   name: 'portfolio',
@@ -287,6 +288,12 @@ export const portfolioSlice = createSlice({
       };
     });
     builder.addCase(fetchAsyncPostComment.fulfilled, (state, action) => {
+      return {
+        ...state,
+        comments: [...state.comments, action.payload],
+      };
+    });
+    builder.addCase(fetchAsyncDeleteComment.fulfilled, (state, action) => {
       return {
         ...state,
         comments: [...state.comments, action.payload],

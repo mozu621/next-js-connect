@@ -11,7 +11,7 @@ export interface PROPS_PROFILE {
   id: number;
   nickName: string;
   profileUser: number;
-  img: File | null;
+  img: string;
 }
 
 /*postSlice.ts*/
@@ -64,7 +64,7 @@ export interface PROFILE {
   nickName: string;
   introduction: string;
   profileUser: number;
-  img: File | null;
+  img: string;
 }
 
 export interface Params extends ParsedUrlQuery {
@@ -72,6 +72,7 @@ export interface Params extends ParsedUrlQuery {
 }
 
 export interface PROPS_COMMENT {
+  commentid: number;
   text: string;
   commentUser: number;
   commentPortfolio: number;
