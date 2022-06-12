@@ -12,6 +12,9 @@ export interface PROPS_PROFILE {
   nickName: string;
   profileUser: number;
   img: string;
+  introduction: string;
+  githuburl: string;
+  twitterurl: string;
 }
 
 /*postSlice.ts*/
@@ -62,9 +65,11 @@ export interface PROPS_CARD {
 export interface PROFILE {
   id: number;
   nickName: string;
-  introduction: string;
   profileUser: number;
   img: string;
+  introduction: string;
+  githuburl: string;
+  twitterurl: string;
 }
 
 export interface Params extends ParsedUrlQuery {
