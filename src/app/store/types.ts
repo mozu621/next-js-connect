@@ -65,8 +65,7 @@ export interface PROPS_CARD {
 export interface PROFILE {
   id: number;
   nickName: string;
-  profileUser: number;
-  img: string;
+  img: File | null;
   introduction: string;
   githuburl: string;
   twitterurl: string;
@@ -103,4 +102,9 @@ export interface PROPS_TAG {
 
 export interface PROPS_LIKEUSER {
   likeuser: number;
+}
+
+export interface File extends Blob {
+  readonly lastModified: number;
+  readonly name: string;
 }

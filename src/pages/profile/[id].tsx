@@ -1,5 +1,5 @@
-import console from 'console';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { AiFillGithub, AiOutlineTwitter } from 'react-icons/ai';
 
@@ -15,13 +15,12 @@ interface ProfileProps {
 const ProfileData: React.FC<ProfileProps> = ({ profile }) => {
   return (
     <div>
-      <div className='flex justify-end px-4 pt-4'>
-        <div
-          id='dropdown'
-          className='hidden z-10 w-44 text-base list-none bg-white dark:bg-gray-700 rounded divide-y divide-gray-100 shadow'
-        ></div>
-      </div>
-      <div className='flex flex-col items-center pb-10'>
+      <div className='flex flex-col items-center pt-4 pb-10 sm:whitespace-normal md:mx-32 lg:mx-48'>
+        <Link href='/editprofile' passHref>
+          <button className='py-2 px-4 mb-5 ml-auto font-semibold text-gray-800 bg-white hover:bg-gray-100 rounded-full border border-gray-400 shadow'>
+            編集
+          </button>
+        </Link>
         <img className='mb-5 w-36 h-36 rounded-full shadow-lg' src={profile.img} />
         <h5 className='mb-1 text-2xl font-medium text-gray-900 dark:text-white'>
           {profile.nickName}
@@ -46,9 +45,7 @@ const ProfileData: React.FC<ProfileProps> = ({ profile }) => {
           </a>
         </div>
         <span className='text-sm text-gray-500 dark:text-gray-400'>Visual Designer</span>
-        <p className='mb-4 text-lg leading-relaxed sm:whitespace-normal md:mx-32 lg:mx-48'>
-          {profile.introduction}
-        </p>
+        <p className='mb-4 text-lg leading-relaxed '>{profile.introduction}</p>
       </div>
     </div>
   );
