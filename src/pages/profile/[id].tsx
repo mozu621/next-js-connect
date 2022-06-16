@@ -1,9 +1,11 @@
+import { request } from 'https';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { AiFillGithub, AiOutlineTwitter } from 'react-icons/ai';
 
-import { fetchAsyncGetProfs } from '../../app/store/slices/authSlice';
+import { useSelector } from 'react-redux';
+import { fetchAsyncGetProfs, selectProfile } from '../../app/store/slices/authSlice';
 import { Params, PROPS_PROFILE } from '../../app/store/types';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_ENDOPOINT;
@@ -13,14 +15,17 @@ interface ProfileProps {
 }
 
 const ProfileData: React.FC<ProfileProps> = ({ profile }) => {
+  const myprofile = useSelector(selectProfile);
   return (
     <div>
       <div className='flex flex-col items-center pt-4 pb-10 sm:whitespace-normal md:mx-32 lg:mx-48'>
-        <Link href='/editprofile' passHref>
-          <button className='py-2 px-4 mb-5 ml-auto font-semibold text-gray-800 bg-white hover:bg-gray-100 rounded-full border border-gray-400 shadow'>
-            編集
-          </button>
-        </Link>
+        {profile.id == myprofile.id && (
+          <Link href='/editprofile' passHref>
+            <button className='py-2 px-4 mb-5 ml-auto font-semibold text-gray-800 bg-white hover:bg-gray-100 rounded-full border border-gray-400 shadow'>
+              編集
+            </button>
+          </Link>
+        )}
         <img className='mb-5 w-36 h-36 rounded-full shadow-lg' src={profile.img} />
         <h5 className='mb-1 text-2xl font-medium text-gray-900 dark:text-white'>
           {profile.nickName}

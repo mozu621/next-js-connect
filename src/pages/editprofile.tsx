@@ -56,7 +56,7 @@ const EditProfile: React.FC = () => {
         initialValues={{
           id: profile.id,
           nickName: profile.nickName,
-          img: undefined,
+          img: null,
           introduction: '',
           githuburl: '',
           twitterurl: '',
@@ -81,10 +81,13 @@ const EditProfile: React.FC = () => {
                 />
                 <input
                   type='file'
-                  id='imageInput'
-                  onChange={(e) => setImage(e.target.files![0])}
-                  value={image}
                   name='img'
+                  onChange={(e) =>
+                    props.setFieldValue(
+                      'img',
+                      e.currentTarget.files !== null ? e.currentTarget.files[0] : null,
+                    )
+                  }
                 />
               </div>
 
