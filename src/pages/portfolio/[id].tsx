@@ -58,15 +58,56 @@ const Portfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
 
   return (
     <>
-      <img className='object-cover w-full h-64' src={portfolio.img} alt='Article' />
-      タイトルは{portfolio.title}です
-      <div className='flex '>
-        {tagsOnPortfolio.map((tag, i) => (
-          <div key={i} className='p-0.5'>
-            <Tag id={tag.id} tagPortfolio={tag.tagPortfolio} tagname={tag.tagname} />
+      <section className='text-gray-600 '>
+        <div className='container flex flex-col items-center p-12 mx-auto md:flex-row'>
+          <div className='mb-10 w-5/6 md:mb-0 md:w-1/2 lg:w-full lg:max-w-lg'>
+            <img className='object-cover w-full h-64' src={portfolio.img} alt='Article' />
           </div>
-        ))}
-      </div>
+          <div className='flex flex-col items-center text-center md:items-start md:pl-16 md:w-1/2 md:text-left lg:grow lg:pl-24'>
+            <h1 className='mb-4 text-3xl font-medium text-gray-900 sm:text-4xl '>
+              {portfolio.title}
+            </h1>
+            <p className='mb-8 leading-relaxed'>
+              Copper mug try-hard pitchfork pour-over freegan heirloom neutra air plant cold-pressed
+              tacos poke beard tote bag. Heirloom echo park mlkshk tote bag selvage hot chicken
+              authentic tumeric truffaut hexagon try-hard chambray.
+            </p>
+            <div className='flex flex-wrap'>
+              {tagsOnPortfolio.map((tag, i) => (
+                <div key={i} className='p-0.5'>
+                  <Tag id={tag.id} tagPortfolio={tag.tagPortfolio} tagname={tag.tagname} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <form className='px-4 pt-2 w-full max-w-xl bg-white rounded-lg'>
+        <div className='flex flex-wrap -mx-3 mb-6'>
+          <div className='px-3 my-2 w-full md:w-full'>
+            <input
+              className='py-2 px-3 w-full h-20 font-medium leading-normal placeholder:text-gray-700 bg-gray-100 focus:bg-white rounded border border-gray-400 focus:outline-none resize-none'
+              type='text'
+              placeholder='add a comment'
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+            />
+          </div>
+          <div className='flex items-start px-3 w-full md:w-full'>
+            <div className='-mr-1'>
+              <button
+                className='py-1 px-4 mr-1 font-medium tracking-wide text-gray-700 bg-white hover:bg-gray-100 rounded-lg border border-gray-400'
+                disabled={!text.length}
+                type='button'
+                onClick={postComment}
+              >
+                Post Comment
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
       <form>
         <input
           type='text'
@@ -80,7 +121,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
           type='button'
           onClick={postComment}
         >
-          Post
+          コメントする
         </button>
         <input
           type='text'
@@ -94,7 +135,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
           type='button'
           onClick={postTag}
         >
-          tagcreate
+          追加
         </button>
       </form>
       {commentsOnPortfolio.map((comment, i) => (

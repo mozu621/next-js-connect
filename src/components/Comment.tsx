@@ -57,16 +57,16 @@ export const Comment: React.FC<PROPS_COMMENT> = ({
 
   return (
     <>
-      <div className='py-4 px-8 mx-auto max-w-2xl bg-white dark:bg-gray-800 rounded-lg shadow-md'>
+      <div className='py-2 px-8 m-4 mx-auto max-w-6xl hover:bg-zinc-100 dark:bg-gray-800 rounded-lg drop-shadow-md hover:drop-shadow-2xl'>
         <div className='flex justify-between items-center'>
           <span className='text-sm font-light text-gray-600 dark:text-gray-400'>Mar 10, 2019</span>
         </div>
 
-        <div className='mt-2'>
-          <p className='mt-2 text-gray-600 dark:text-gray-300'>{text}</p>
+        <div>
+          <p className=' text-gray-600 dark:text-gray-300'>{text}</p>
         </div>
 
-        <div className='flex justify-between items-center mt-4'>
+        <div className='flex justify-between items-center mt-2'>
           <div className='flex items-center'>
             <Avatar imgurl={commentUserprofileimg} profileid={commentUserprofileid} />
             <a className='font-bold text-gray-700 dark:text-gray-200 cursor-pointer'>
