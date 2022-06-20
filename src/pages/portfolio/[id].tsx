@@ -1,4 +1,5 @@
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useState } from 'react';
@@ -6,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { AppDispatch } from '../../app/store';
 
-import { fetchAsyncGetProfs } from '../../app/store/slices/authSlice';
+import { fetchAsyncGetProfs, selectProfile } from '../../app/store/slices/authSlice';
 import {
   selectComments,
   fetchAsyncPostComment,
@@ -28,6 +29,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
   const dispatch: AppDispatch = useDispatch();
   const comments = useSelector(selectComments);
   const tags = useSelector(selectTags);
+  const myprofile = useSelector(selectProfile);
 
   const commentsOnPortfolio = comments.filter((comment) => {
     return comment.commentPortfolio === portfolio.id;
@@ -67,6 +69,13 @@ const Portfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
             <h1 className='mb-4 text-3xl font-medium text-gray-900 sm:text-4xl '>
               {portfolio.title}
             </h1>
+            {portfolio.author == myprofile.profileUser && (
+              <Link href={`/editportfolio/${portfolio.id}`} passHref>
+                <button className='py-2 px-4 mb-5 ml-auto font-semibold text-gray-800 bg-white hover:bg-gray-100 rounded-full border border-gray-400 shadow'>
+                  編集
+                </button>
+              </Link>
+            )}
             <p className='mb-8 leading-relaxed'>
               Copper mug try-hard pitchfork pour-over freegan heirloom neutra air plant cold-pressed
               tacos poke beard tote bag. Heirloom echo park mlkshk tote bag selvage hot chicken
