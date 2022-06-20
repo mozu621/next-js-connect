@@ -25,12 +25,12 @@ export const Like: React.FC<PROPS_LIKE> = ({ likePortfolio }) => {
   const myprofile = useSelector(selectProfile);
   const openLikeuser = useSelector(selectOpenLikeuser);
 
-  //１つのポートフォリオに関してのuser取得
+  //１つのポートフォリオに関してのlike取得
   const likeUsersOnPortfolio = likes.filter((like) => {
     return like.likePortfolio === likePortfolio;
   });
 
-  //消したいlikeを取得(配列,オブジェクト)
+  //消したいlikeを取得(配列,オブジェクト)(自分がいいねしたポートフォリオを取得している)
   const selectedLike = likeUsersOnPortfolio.filter((like) => {
     return like.likeUser === myprofile.profileUser;
   });

@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Like } from '../../../components/Like';
 import { AppState } from '../index';
-import { PROPS_LIKE, PROPS_NEWPORTFOLIO, COMMENT, TAG } from '../types';
+import { PROPS_LIKE, PROPS_NEWPORTFOLIO, COMMENT, TAG, PORTFOLIO } from '../types';
 
 const apiUrlPortfolio = `${process.env.NEXT_PUBLIC_API_ENDOPOINT}api/portfolio/`;
 const apiUrlComment = `${process.env.NEXT_PUBLIC_API_ENDOPOINT}api/comment/`;
@@ -174,6 +174,22 @@ export const fetchAsyncGetFilterTags = createAsyncThunk(
   },
 );
 
+export const fetchAsyncUpdatePortfolio = createAsyncThunk(
+  'portfolio/put',
+  async (portfolio: PORTFOLIO) => {
+    const uploadData = new FormData();
+    uploadData.append('title', portfolio.title);
+    portfolio.img && uploadData.append('img', portfolio.img);
+    const res = await axios.put(`${apiUrlPortfolio}${portfolio.id}/`, uploadData, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `JWT ${localStorage.localJWT}`,
+      },
+    });
+    return res.data;
+  },
+);
+
 export const portfolioSlice = createSlice({
   name: 'portfolio',
   initialState: {
@@ -262,6 +278,11 @@ export const portfolioSlice = createSlice({
         ...state,
         portfolios: [...state.portfolios, action.payload],
       };
+    });
+    builder.addCase(fetchAsyncUpdatePortfolio.fulfilled, (state, action) => {
+      state.portfolios = state.portfolios.map(
+        (portfolio) => (portfolio.id === action.payload.id ? action.payload : portfolio), //更新したデータだけを即座に更新する
+      );
     });
     builder.addCase(fetchAsyncGetLikes.fulfilled, (state, action) => {
       return {

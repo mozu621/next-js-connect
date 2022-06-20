@@ -108,3 +108,11 @@ export interface File extends Blob {
   readonly lastModified: number;
   readonly name: string;
 }
+
+export interface PORTFOLIO {
+  id: number;
+  title: string;
+  url: string;
+  content: string;
+  img: File | null;
+}
