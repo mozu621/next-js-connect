@@ -82,37 +82,63 @@ const EditPortfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
         }}
       >
         {(props) => (
-          <section className='mt-10'>
-            <form onSubmit={props.handleSubmit} className='flex flex-col'>
-              <div className='pt-3 mb-6 bg-gray-200 rounded'>
-                <label className='block mb-2 ml-3 text-sm font-bold text-gray-700'>title</label>
-                <input
-                  placeholder='title'
-                  type='text'
-                  onChange={props.handleChange}
-                  value={props.values.title}
-                  name='title'
-                />
-                <input
-                  type='file'
-                  name='img'
-                  onChange={(e) =>
-                    props.setFieldValue(
-                      'img',
-                      e.currentTarget.files !== null ? e.currentTarget.files[0] : null,
-                    )
-                  }
-                />
-              </div>
+          <form onSubmit={props.handleSubmit} className='flex flex-col'>
+            <div className='mb-6 lg:mx-32'>
+              <label className='block my-2 text-sm font-medium text-gray-900 dark:text-gray-300'>
+                ポートフォリオ名
+              </label>
+              <input
+                placeholder='ポートフォリオ名を入力してください'
+                type='text'
+                onChange={props.handleChange}
+                value={props.values.title}
+                name='title'
+                className='block p-2.5 w-full text-sm text-gray-900 dark:text-white dark:placeholder:text-gray-400 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-300 focus:border-blue-500 dark:border-gray-600 dark:focus:border-blue-500 focus:ring-blue-500 dark:focus:ring-blue-500'
+              />
+              <label className='block my-2 text-sm font-medium text-gray-900 dark:text-gray-300'>
+                URL
+              </label>
+              <input
+                placeholder='URLを入力してください'
+                type='text'
+                onChange={props.handleChange}
+                value={props.values.url}
+                name='url'
+                className='block p-2.5 w-full text-sm text-gray-900 dark:text-white dark:placeholder:text-gray-400 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-300 focus:border-blue-500 dark:border-gray-600 dark:focus:border-blue-500 focus:ring-blue-500 dark:focus:ring-blue-500'
+              />
+              <label className='block my-2 text-sm font-medium text-gray-900 dark:text-gray-300'>
+                ポートフォリオ内容
+              </label>
+              <input
+                placeholder='ポートフォリオの内容を入力してください'
+                type='text'
+                onChange={props.handleChange}
+                value={props.values.content}
+                name='content'
+                className='block p-4 w-full text-gray-900 dark:text-white dark:placeholder:text-gray-400 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-300 focus:border-blue-500 dark:border-gray-600 dark:focus:border-blue-500 focus:ring-blue-500 dark:focus:ring-blue-500 '
+              />
 
-              <button
-                className='py-2 px-4 font-bold bg-blue-500 hover:bg-blue-700 rounded-full '
-                type='submit'
-              >
-                Create
-              </button>
-            </form>
-          </section>
+              <label className='block my-2 text-sm font-medium text-gray-900 dark:text-gray-300'>
+                画像
+              </label>
+              <input
+                type='file'
+                name='img'
+                onChange={(e) =>
+                  props.setFieldValue(
+                    'img',
+                    e.currentTarget.files !== null ? e.currentTarget.files[0] : null,
+                  )
+                }
+              />
+            </div>
+            <button
+              className='py-2 px-6 mx-auto mb-5 font-semibold text-gray-800 bg-white hover:bg-yellow-300 rounded-full border border-gray-400 shadow'
+              type='submit'
+            >
+              変更
+            </button>
+          </form>
         )}
       </Formik>
     </>
