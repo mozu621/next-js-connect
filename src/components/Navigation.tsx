@@ -15,7 +15,7 @@ const Navigation: React.FC = () => {
           <div className='md:flex md:justify-between md:items-center'>
             <div className='flex justify-between items-center'>
               <div className='text-xl font-semibold text-gray-700'>
-                <Link href='/'>
+                <Link href='/core'>
                   <a className=' font-mono marker:text-2xl font-bold text-black hover:text-gray-700 dark:text-white dark:hover:text-gray-300 transition-colors duration-200 lg:text-5xl'>
                     Connect
                   </a>

@@ -49,7 +49,6 @@ const ProfileData: React.FC<ProfileProps> = ({ profile }) => {
             <AiOutlineTwitter />
           </a>
         </div>
-        <span className='text-sm text-gray-500 dark:text-gray-400'>Visual Designer</span>
         <p className='mb-4 text-lg leading-relaxed '>{profile.introduction}</p>
       </div>
     </div>

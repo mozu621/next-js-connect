@@ -24,7 +24,7 @@ import {
   fetchPostStart,
   selectPortfolios,
 } from '../../app/store/slices/portfolioSlice';
-import { PROPS_PORTFOLIO, TAG } from '../../app/store/types';
+import { PROPS_PORTFOLIO, PORTFOLIO, TAG } from '../../app/store/types';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_ENDOPOINT;
 
@@ -37,7 +37,7 @@ const EditPortfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
   const router = useRouter();
   const openProfile = useSelector(selectOpenProfile);
   const profile = useSelector(selectProfile);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(portfolio.img);
   const Portfolios = useSelector(selectPortfolios);
 
   //const updateProfile = async (e: React.MouseEvent<HTMLElement>) => {
@@ -84,7 +84,7 @@ const EditPortfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
         {(props) => (
           <form onSubmit={props.handleSubmit} className='flex flex-col'>
             <div className='mb-6 lg:mx-32'>
-              <label className='block my-2 text-sm font-medium text-gray-900 dark:text-gray-300'>
+              <label className='block my-2 text-base font-medium text-gray-900 dark:text-gray-300'>
                 ポートフォリオ名
               </label>
               <input
@@ -93,9 +93,9 @@ const EditPortfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
                 onChange={props.handleChange}
                 value={props.values.title}
                 name='title'
-                className='block p-2.5 w-full text-sm text-gray-900 dark:text-white dark:placeholder:text-gray-400 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-300 focus:border-blue-500 dark:border-gray-600 dark:focus:border-blue-500 focus:ring-blue-500 dark:focus:ring-blue-500'
+                className='block p-2.5 w-full text-base text-gray-900 dark:text-white dark:placeholder:text-gray-400 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-300 focus:border-blue-500 dark:border-gray-600 dark:focus:border-blue-500 focus:ring-blue-500 dark:focus:ring-blue-500'
               />
-              <label className='block my-2 text-sm font-medium text-gray-900 dark:text-gray-300'>
+              <label className='block my-2 text-base font-medium text-gray-900 dark:text-gray-300'>
                 URL
               </label>
               <input
@@ -104,21 +104,20 @@ const EditPortfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
                 onChange={props.handleChange}
                 value={props.values.url}
                 name='url'
-                className='block p-2.5 w-full text-sm text-gray-900 dark:text-white dark:placeholder:text-gray-400 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-300 focus:border-blue-500 dark:border-gray-600 dark:focus:border-blue-500 focus:ring-blue-500 dark:focus:ring-blue-500'
+                className='block p-2.5 w-full text-base text-gray-900 dark:text-white dark:placeholder:text-gray-400 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-300 focus:border-blue-500 dark:border-gray-600 dark:focus:border-blue-500 focus:ring-blue-500 dark:focus:ring-blue-500'
               />
-              <label className='block my-2 text-sm font-medium text-gray-900 dark:text-gray-300'>
+              <label className='block my-2 text-base font-medium text-gray-900 dark:text-gray-300'>
                 ポートフォリオ内容
               </label>
-              <input
+              <textarea
                 placeholder='ポートフォリオの内容を入力してください'
-                type='text'
                 onChange={props.handleChange}
                 value={props.values.content}
                 name='content'
                 className='block p-4 w-full text-gray-900 dark:text-white dark:placeholder:text-gray-400 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-300 focus:border-blue-500 dark:border-gray-600 dark:focus:border-blue-500 focus:ring-blue-500 dark:focus:ring-blue-500 '
               />
 
-              <label className='block my-2 text-sm font-medium text-gray-900 dark:text-gray-300'>
+              <label className='block my-2 text-base font-medium text-gray-900 dark:text-gray-300'>
                 画像
               </label>
               <input
@@ -133,7 +132,7 @@ const EditPortfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
               />
             </div>
             <button
-              className='py-2 px-6 mx-auto mb-5 font-semibold text-gray-800 bg-white hover:bg-yellow-300 rounded-full border border-gray-400 shadow'
+              className='py-2 px-6 mx-auto mb-5 font-semibold text-white bg-gray-800 hover:bg-gray-900 rounded-full border border-gray-400 shadow'
               type='submit'
             >
               変更

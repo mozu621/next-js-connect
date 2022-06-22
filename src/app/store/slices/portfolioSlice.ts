@@ -179,6 +179,8 @@ export const fetchAsyncUpdatePortfolio = createAsyncThunk(
   async (portfolio: PORTFOLIO) => {
     const uploadData = new FormData();
     uploadData.append('title', portfolio.title);
+    uploadData.append('url', portfolio.url);
+    uploadData.append('content', portfolio.content);
     portfolio.img && uploadData.append('img', portfolio.img);
     const res = await axios.put(`${apiUrlPortfolio}${portfolio.id}/`, uploadData, {
       headers: {

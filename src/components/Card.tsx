@@ -46,38 +46,32 @@ export const Card: React.FC<PROPS_CARD> = ({ title, portfolioid, author, portfol
         <div className='hover: overflow-hidden col-span-1 p-2 mx-auto max-w-2xl bg-stone-50 hover:bg-zinc-100 dark:bg-gray-800 rounded-lg drop-shadow-md hover:drop-shadow-2xl'>
           <img className='object-cover w-full h-64 rounded-lg' src={portfolioimg} alt='Article' />
 
-          <div className='p-6'>
-            <div>
-              <Link href={`/portfolio/${portfolioid}`} passHref>
-                <a
-                  href='#'
-                  className='block mt-2 text-2xl font-semibold text-blue-600 hover:text-blue-500 dark:text-white hover:underline transition-colors duration-200'
-                >
-                  {title}
-                </a>
-              </Link>
-              <p className='mt-2 text-sm text-gray-600 dark:text-gray-400'>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Molestie parturient et sem
-                ipsum volutpat vel. Natoque sem et aliquam mauris egestas quam volutpat viverra. In
-                pretium nec senectus erat. Et malesuada lobortis.
-              </p>
-            </div>
-
-            <div className='mt-4'>
-              <div className='flex items-center'>
-                <div className='flex items-center'>
-                  <FaRegComment />
-                  <div>{commentsOnPortfolio.length}</div>
-                  <Like likePortfolio={portfolioid} />
-                  {avatarprofileimg && (
-                    <Avatar imgurl={avatarprofileimg} profileid={avatarprofileid} />
-                  )}
-                  <a href='#' className='mx-2 font-semibold text-gray-700 dark:text-gray-200'>
-                    {avatarnicknname}
+          <div className=''>
+            <div className='flex flex-col '>
+              <div>
+                <Link href={`/portfolio/${portfolioid}`} passHref>
+                  <a
+                    href='#'
+                    className='block mt-2 text-2xl font-semibold text-blue-600 hover:text-blue-500 dark:text-white hover:underline transition-colors duration-200'
+                  >
+                    {title}
                   </a>
+                </Link>
+              </div>
+              <div className='flex '>
+                <div className='mt-1'>
+                  <FaRegComment />
                 </div>
-
-                <span className='mx-1 text-xs text-gray-600 dark:text-gray-300'>21 SEP 2015</span>
+                <div className=' pr-3'>{commentsOnPortfolio.length}</div>
+                <Like likePortfolio={portfolioid} />
+              </div>
+              <div className='flex items-center'>
+                {avatarprofileimg && (
+                  <Avatar imgurl={avatarprofileimg} profileid={avatarprofileid} />
+                )}
+                <a href='#' className='mx-2 font-semibold text-gray-700 dark:text-gray-200'>
+                  {avatarnicknname}
+                </a>
               </div>
             </div>
           </div>
