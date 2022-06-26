@@ -39,14 +39,18 @@ export const Card: React.FC<PROPS_CARD> = ({ title, portfolioid, author, portfol
   return (
     <>
       {portfolioimg && (
-        <div className='hover: overflow-hidden col-span-1 self-auto p-4 mx-auto max-w-2xl bg-stone-50 hover:bg-zinc-100 dark:bg-gray-800 hover:drop-shadow-2xl'>
+        <div className='hover: overflow-hidden p-4 m-1 w-full bg-stone-50 hover:bg-zinc-100 dark:bg-gray-800 hover:drop-shadow-2xl '>
+          <div className='flex items-center mb-2'>
+            {avatarprofileimg && <Avatar imgurl={avatarprofileimg} profileid={avatarprofileid} />}
+            <a className='mx-2 text-sm text-gray-500'>{avatarnicknname}</a>
+          </div>
           <img className='object-cover w-full h-40' src={portfolioimg} alt='Article' />
 
-          <div className='px-2'>
-            <div className='flex mt-3 mb-10'>
-              <div className='flex flex-1'>
+          <div className=''>
+            <div className='flex mt-1'>
+              <div className='flex flex-1 ml-2'>
                 <Link href={`/portfolio/${portfolioid}`} passHref>
-                  <a className='block text-lg font-semibold text-black hover:text-blue-500 dark:text-white transition-colors duration-200'>
+                  <a className='block text-lg font-semibold text-black hover:text-blue-600 '>
                     {title}
                   </a>
                 </Link>
@@ -62,14 +66,10 @@ export const Card: React.FC<PROPS_CARD> = ({ title, portfolioid, author, portfol
             </div>
             <div className='flex flex-wrap'>
               {tagsOnPortfolio.map((tag, i) => (
-                <div key={i} className='p-0.5'>
+                <div key={i}>
                   <Tag id={tag.id} tagPortfolio={tag.tagPortfolio} tagname={tag.tagname} />
                 </div>
               ))}
-            </div>
-            <div className='flex items-center mb-2 '>
-              {avatarprofileimg && <Avatar imgurl={avatarprofileimg} profileid={avatarprofileid} />}
-              <a className='mx-2 text-sm text-gray-500'>{avatarnicknname}</a>
             </div>
           </div>
         </div>

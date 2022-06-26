@@ -44,8 +44,8 @@ const Home: NextPage = () => {
   const [portfolioList, setPortfolioList] = useState<PROPS_PORTFOLIO[]>(allportfolioList);
   const search = (value: string) => {
     if (value !== '') {
-      const filteredList = allportfolioList.filter((value: PROPS_PORTFOLIO) => {
-        return value.title.toString().toLowerCase().includes(inputValue.toLowerCase());
+      const filteredList = allportfolioList.filter((portfolio: PROPS_PORTFOLIO) => {
+        return portfolio.title.toString().toLowerCase().includes(value.toLowerCase());
       });
       setPortfolioList(filteredList);
       return;
@@ -84,9 +84,9 @@ const Home: NextPage = () => {
         </div>
       </section>
 
-      <div className='grid gap-5 lg:grid-cols-4'>
+      <div className='flex flex-wrap'>
         {portfolioList.map((portfolio, i) => (
-          <div key={i}>
+          <div key={i} className='flex lg:w-1/4'>
             <Card
               title={portfolio.title}
               portfolioid={portfolio.id}
