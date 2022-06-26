@@ -3,15 +3,17 @@ import { FaRegComment } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch } from '../app/store';
 import { selectProfiles } from '../app/store/slices/authSlice';
-import { selectComments, selectOpenNewCommnet } from '../app/store/slices/portfolioSlice';
+import { selectComments, selectTags } from '../app/store/slices/portfolioSlice';
 import { PROPS_CARD } from '../app/store/types';
 import { Avatar } from './Avatar';
 import { Like } from './Like';
+import { Tag } from './Tag';
 
 export const Card: React.FC<PROPS_CARD> = ({ title, portfolioid, author, portfolioimg }) => {
   const dispatch: AppDispatch = useDispatch();
   const profiles = useSelector(selectProfiles);
   const comments = useSelector(selectComments);
+  const tags = useSelector(selectTags);
 
   //avatarに渡すprofile情報を定義した
   const avatarprofile = profiles.filter((profile) => {
@@ -30,21 +32,26 @@ export const Card: React.FC<PROPS_CARD> = ({ title, portfolioid, author, portfol
     return comment.commentPortfolio === portfolioid;
   });
 
+  const tagsOnPortfolio = tags.filter((tag) => {
+    return tag.tagPortfolio.id === portfolioid;
+  });
+
   return (
     <>
       {portfolioimg && (
-        <div className='hover: overflow-hidden col-span-1 p-2 mx-auto max-w-2xl bg-stone-50 hover:bg-zinc-100 dark:bg-gray-800 drop-shadow-md hover:drop-shadow-2xl'>
-          <img className='object-cover w-full h-64 rounded-lg' src={portfolioimg} alt='Article' />
+        <div className='hover: overflow-hidden col-span-1 self-auto p-4 mx-auto max-w-2xl bg-stone-50 hover:bg-zinc-100 dark:bg-gray-800 hover:drop-shadow-2xl'>
+          <img className='object-cover w-full h-40' src={portfolioimg} alt='Article' />
 
-          <div className=''>
-            <div className='flex  '>
+          <div className='px-2'>
+            <div className='flex mt-3 mb-10'>
               <div className='flex flex-1'>
                 <Link href={`/portfolio/${portfolioid}`} passHref>
-                  <a className='block text-xl font-semibold text-black hover:text-blue-500 dark:text-white transition-colors duration-200'>
+                  <a className='block text-lg font-semibold text-black hover:text-blue-500 dark:text-white transition-colors duration-200'>
                     {title}
                   </a>
                 </Link>
               </div>
+
               <div className='flex flex-row mx-auto'>
                 <div className='mt-1'>
                   <FaRegComment />
@@ -53,11 +60,16 @@ export const Card: React.FC<PROPS_CARD> = ({ title, portfolioid, author, portfol
                 <Like likePortfolio={portfolioid} />
               </div>
             </div>
-            <div className='flex items-center'>
+            <div className='flex flex-wrap'>
+              {tagsOnPortfolio.map((tag, i) => (
+                <div key={i} className='p-0.5'>
+                  <Tag id={tag.id} tagPortfolio={tag.tagPortfolio} tagname={tag.tagname} />
+                </div>
+              ))}
+            </div>
+            <div className='flex items-center mb-2 '>
               {avatarprofileimg && <Avatar imgurl={avatarprofileimg} profileid={avatarprofileid} />}
-              <a href='#' className='mx-2 font-semibold text-gray-700 dark:text-gray-200'>
-                {avatarnicknname}
-              </a>
+              <a className='mx-2 text-sm text-gray-500'>{avatarnicknname}</a>
             </div>
           </div>
         </div>

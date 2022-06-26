@@ -84,7 +84,7 @@ const Home: NextPage = () => {
         </div>
       </section>
 
-      <div className='grid gap-2 lg:grid-cols-3'>
+      <div className='grid gap-5 lg:grid-cols-4'>
         {portfolioList.map((portfolio, i) => (
           <div key={i}>
             <Card

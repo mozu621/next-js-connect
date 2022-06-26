@@ -6,7 +6,7 @@ export const Avatar: React.FC<PROPS_AVATER> = ({ imgurl, profileid }) => {
     <>
       <Link href={`/profile/${profileid}`} passHref>
         <img
-          className='flex relative justify-center items-center m-1 mr-2 w-16 h-16 text-xl text-white rounded-full'
+          className='flex relative justify-center items-center w-12 h-12 text-xl text-white rounded-full'
           src={imgurl}
         />
       </Link>

@@ -9,7 +9,7 @@ export const Tag: React.FC<PROPS_TAG> = ({ tagname }) => {
   return (
     <>
       <Link href={`/filter/${tagname}`} passHref>
-        <button className='py-1 px-3 text-xs text-blue-800 dark:text-blue-900 bg-blue-200 hover:bg-blue-700 dark:bg-blue-300 rounded-full'>
+        <button className=' p-1 font-semibold text-white bg-gray-900 hover:bg-gray-600  '>
           {tagname}
         </button>
       </Link>
