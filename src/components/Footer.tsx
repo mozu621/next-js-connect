@@ -14,15 +14,7 @@ const Footer: React.FC = () => {
             <span className='ml-3 text-xl'>Connect</span>
           </a>
           <p className='mt-4 text-sm text-gray-500 sm:py-2 sm:pl-4 sm:mt-0 sm:ml-4 sm:border-l-2 sm:border-gray-200'>
-            © 2022 my portfolio
-            <a
-              href='https://twitter.com/knyttneve'
-              className='ml-1 text-gray-600'
-              rel='noopener noreferrer'
-              target='_blank'
-            >
-              @mozu
-            </a>
+            © 2022mozu
           </p>
         </div>
       </footer>

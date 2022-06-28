@@ -38,42 +38,49 @@ export const Card: React.FC<PROPS_CARD> = ({ title, portfolioid, author, portfol
 
   return (
     <>
-      {portfolioimg && (
-        <div className='hover: overflow-hidden p-4 m-1 w-full bg-stone-50 hover:bg-zinc-100 dark:bg-gray-800 hover:drop-shadow-2xl '>
-          <div className='flex items-center mb-2'>
-            {avatarprofileimg && <Avatar imgurl={avatarprofileimg} profileid={avatarprofileid} />}
-            <a className='mx-2 text-sm text-gray-500'>{avatarnicknname}</a>
-          </div>
-          <img className='object-cover w-full h-40' src={portfolioimg} alt='Article' />
+      <div className='hover: overflow-hidden p-4 m-1 w-full bg-stone-50 hover:bg-zinc-100 dark:bg-gray-800 hover:drop-shadow-2xl '>
+        <div className='flex items-center mb-2'>
+          {avatarprofileimg && <Avatar imgurl={avatarprofileimg} profileid={avatarprofileid} />}
+          <a className='mx-2 text-sm text-gray-500'>{avatarnicknname}</a>
+        </div>
+        {portfolioimg ? (
+          <img className='w-full h-40 object-object-fill' src={portfolioimg} alt='Article' />
+        ) : (
+          <img
+            className='object-contain w-full h-40'
+            src='http://127.0.0.1:8000/media/portfolios/noimage2.png'
+            alt='Article'
+          />
+        )}
+        <div className=''>
+          <div className='flex mt-1'>
+            <div className='flex flex-1 ml-2'>
+              <Link href={`/portfolio/${portfolioid}`} passHref>
+                <a className='block text-lg font-semibold text-black hover:text-blue-600 '>
+                  {title}
+                </a>
+              </Link>
+            </div>
 
-          <div className=''>
-            <div className='flex mt-1'>
-              <div className='flex flex-1 ml-2'>
-                <Link href={`/portfolio/${portfolioid}`} passHref>
-                  <a className='block text-lg font-semibold text-black hover:text-blue-600 '>
-                    {title}
-                  </a>
-                </Link>
-              </div>
-
-              <div className='flex flex-row mx-auto'>
+            <div className='flex flex-row mx-auto'>
+              <Link href={`/portfolio/${portfolioid}`} passHref>
                 <div className='mt-1'>
                   <FaRegComment />
                 </div>
-                <div className=' pr-3'>{commentsOnPortfolio.length}</div>
-                <Like likePortfolio={portfolioid} />
-              </div>
-            </div>
-            <div className='flex flex-wrap'>
-              {tagsOnPortfolio.map((tag, i) => (
-                <div key={i}>
-                  <Tag id={tag.id} tagPortfolio={tag.tagPortfolio} tagname={tag.tagname} />
-                </div>
-              ))}
+              </Link>
+              <div className=' pr-3'>{commentsOnPortfolio.length}</div>
+              <Like likePortfolio={portfolioid} />
             </div>
           </div>
+          <div className='flex flex-wrap'>
+            {tagsOnPortfolio.map((tag, i) => (
+              <div key={i}>
+                <Tag id={tag.id} tagPortfolio={tag.tagPortfolio} tagname={tag.tagname} />
+              </div>
+            ))}
+          </div>
         </div>
-      )}
+      </div>
     </>
   );
 };

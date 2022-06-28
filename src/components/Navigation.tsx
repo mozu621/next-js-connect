@@ -48,7 +48,7 @@ const Navigation: React.FC = () => {
                   人気
                 </a>
                 <div className='py-1 px-2 mx-2 mt-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-700 rounded-md transition-colors duration-200 md:mt-0'>
-                  <Link href='/'>ホーム</Link>
+                  <Link href='/newportfolio'>ポートフォリオ登録</Link>
                 </div>
               </div>
 

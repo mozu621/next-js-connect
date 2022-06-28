@@ -83,6 +83,7 @@ const EditPortfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
       >
         {(props) => (
           <form onSubmit={props.handleSubmit} className='flex flex-col'>
+            <div className='m-5 text-2xl font-extrabold text-center'>ポートフォリオ編集</div>
             <div className='mb-6 lg:mx-32'>
               <label className='block my-2 text-base font-medium text-gray-900 dark:text-gray-300'>
                 ポートフォリオ名

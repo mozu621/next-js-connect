@@ -50,6 +50,9 @@ export const fetchAsyncCreateProf = createAsyncThunk(
 export const fetchAsyncUpdateProf = createAsyncThunk('profile/put', async (profile: PROFILE) => {
   const uploadData = new FormData();
   uploadData.append('nickName', profile.nickName);
+  uploadData.append('introduction', profile.introduction);
+  uploadData.append('githuburl', profile.githuburl);
+  uploadData.append('twitterurl', profile.twitterurl);
   profile.img && uploadData.append('img', profile.img);
   const res = await axios.put(`${apiUrl}api/profile/${profile.id}/`, uploadData, {
     headers: {
@@ -99,7 +102,7 @@ export const authSlice = createSlice({
       {
         id: 0,
         nickName: '',
-        Introduction: '',
+        introduction: '',
         profileUser: 0,
         created_on: '',
         img: '',

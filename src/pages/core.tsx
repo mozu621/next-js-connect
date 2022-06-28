@@ -83,7 +83,7 @@ const Home: NextPage = () => {
           />
         </div>
       </section>
-
+      <div className='m-5 text-2xl font-extrabold text-center'>ポートフォリオ一覧</div>
       <div className='flex flex-wrap'>
         {portfolioList.map((portfolio, i) => (
           <div key={i} className='flex lg:w-1/4'>
