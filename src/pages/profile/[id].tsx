@@ -26,7 +26,14 @@ const ProfileData: React.FC<ProfileProps> = ({ profile }) => {
             </button>
           </Link>
         )}
-        <img className='mb-5 w-36 h-36 rounded-full shadow-lg' src={profile.img} />
+        {profile.img ? (
+          <img className='mb-5 w-36 h-36 rounded-full shadow-lg' src={profile.img} />
+        ) : (
+          <img
+            className='object-contain mb-5 w-48 h-48 rounded-full '
+            src='http://127.0.0.1:8000/media/avatars/no-icon.png'
+          />
+        )}
         <h5 className='mb-1 text-2xl font-medium text-gray-900 dark:text-white'>
           {profile.nickName}
         </h5>

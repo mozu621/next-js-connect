@@ -40,7 +40,7 @@ export const Card: React.FC<PROPS_CARD> = ({ title, portfolioid, author, portfol
     <>
       <div className='hover: overflow-hidden p-4 m-1 w-full bg-stone-50 hover:bg-zinc-100 dark:bg-gray-800 hover:drop-shadow-2xl '>
         <div className='flex items-center mb-2'>
-          {avatarprofileimg && <Avatar imgurl={avatarprofileimg} profileid={avatarprofileid} />}
+          <Avatar imgurl={avatarprofileimg} profileid={avatarprofileid} />
           <a className='mx-2 text-sm text-gray-500'>{avatarnicknname}</a>
         </div>
         {portfolioimg ? (
