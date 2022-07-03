@@ -44,13 +44,17 @@ export const Card: React.FC<PROPS_CARD> = ({ title, portfolioid, author, portfol
           <a className='mx-2 text-sm text-gray-500'>{avatarnicknname}</a>
         </div>
         {portfolioimg ? (
-          <img className='w-full h-40 object-object-fill' src={portfolioimg} alt='Article' />
+          <Link href={`/portfolio/${portfolioid}`} passHref>
+            <img className='w-full h-40 object-object-fill' src={portfolioimg} alt='Article' />
+          </Link>
         ) : (
-          <img
-            className='object-contain w-full h-40'
-            src='http://127.0.0.1:8000/media/portfolios/noimage2.png'
-            alt='Article'
-          />
+          <Link href={`/portfolio/${portfolioid}`} passHref>
+            <img
+              className='object-contain w-full h-40'
+              src='http://127.0.0.1:8000/media/portfolios/noimage2.png'
+              alt='Article'
+            />
+          </Link>
         )}
         <div className=''>
           <div className='flex mt-1'>

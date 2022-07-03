@@ -16,9 +16,10 @@ interface PortfolioProps {
 const FilterPortfolioData: React.FC<PortfolioProps> = ({ filterportfolio }) => {
   return (
     <div>
-      {filterportfolio.map((portfolio, i) => (
-        <div key={i}>
-          <div>
+      <div className='m-5 text-2xl font-extrabold text-center'>ポートフォリオ一覧</div>
+      <div className='flex flex-wrap'>
+        {filterportfolio.map((portfolio, i) => (
+          <div key={i} className='flex lg:w-1/4'>
             <Card
               title={portfolio.tagPortfolio.title}
               portfolioid={portfolio.tagPortfolio.id}
@@ -26,8 +27,8 @@ const FilterPortfolioData: React.FC<PortfolioProps> = ({ filterportfolio }) => {
               portfolioimg={portfolio.tagPortfolio.img}
             />
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };

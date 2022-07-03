@@ -63,7 +63,19 @@ const Portfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
       <section className='text-gray-600 '>
         <div className='container flex flex-col items-center p-12 mx-auto md:flex-row'>
           <div className='mb-10 w-5/6 md:mb-0 md:w-1/2 lg:w-full lg:max-w-lg'>
-            <img className='object-cover w-full h-64' src={portfolio.img} alt='Article' />
+            {portfolio.img ? (
+              <Link href={`/editportfolio/${portfolio.id}`} passHref>
+                <img className='object-cover w-full h-64' src={portfolio.img} alt='Article' />
+              </Link>
+            ) : (
+              <Link href={`/editportfolio/${portfolio.id}`} passHref>
+                <img
+                  className='object-contain w-full h-64 border'
+                  src='http://127.0.0.1:8000/media/portfolios/noimage2.png'
+                  alt='Article'
+                />
+              </Link>
+            )}
           </div>
           <div className='flex flex-col items-center text-center md:items-start md:pl-16 md:w-1/2 md:text-left lg:grow lg:pl-24'>
             <h1 className='mb-4 text-3xl font-medium text-gray-900 sm:text-4xl '>
