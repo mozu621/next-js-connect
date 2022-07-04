@@ -103,7 +103,7 @@ const EditProfile: React.FC = () => {
                 type='text'
                 onChange={props.handleChange}
                 value={props.values.githuburl}
-                name='nickName'
+                name='githuburl'
                 className='block p-2.5 w-full text-base text-gray-900 dark:text-white dark:placeholder:text-gray-400 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-300 focus:border-blue-500 dark:border-gray-600 dark:focus:border-blue-500 focus:ring-blue-500 dark:focus:ring-blue-500'
               />
               <label className='block my-2 text-base font-medium text-gray-900 dark:text-gray-300'>
@@ -114,7 +114,7 @@ const EditProfile: React.FC = () => {
                 type='text'
                 onChange={props.handleChange}
                 value={props.values.twitterurl}
-                name='nickName'
+                name='twitterurl'
                 className='block p-2.5 w-full text-base text-gray-900 dark:text-white dark:placeholder:text-gray-400 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-300 focus:border-blue-500 dark:border-gray-600 dark:focus:border-blue-500 focus:ring-blue-500 dark:focus:ring-blue-500'
               />
               <label className='block my-2 text-base font-medium text-gray-900 dark:text-gray-300'>

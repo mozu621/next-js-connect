@@ -60,7 +60,7 @@ const Navigation: React.FC = () => {
                 >
                   {/* ↓avatar周り */}
 
-                  {myprofile.img && <Avatar imgurl={myprofile.img} profileid={myprofile.id} />}
+                  <Avatar imgurl={myprofile.img} profileid={myprofile.id} />
 
                   <h3 className='mx-2 text-sm font-medium text-gray-700 dark:text-gray-200 md:hidden'>
                     Khatab wedaa
