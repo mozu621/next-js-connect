@@ -1,31 +1,14 @@
-import { Formik } from 'formik';
-
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Link from 'next/link';
 
 import { useEffect, useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import Modal from 'react-modal';
 
-import { useSelector, useDispatch } from 'react-redux';
-import styles from '../../styles/Home.module.css';
-import { AppDispatch } from '../app/store';
-import { selectProfile, selectProfiles } from '../app/store/slices/authSlice';
-import {
-  fetchAsyncNewPortfolio,
-  fetchPostEnd,
-  fetchPostStart,
-  selectPortfolios,
-  selectOpenNewCommnet,
-  resetOpenNewComment,
-  fetchAsyncPostComment,
-  selectTags,
-} from '../app/store/slices/portfolioSlice';
-import { PROPS_PORTFOLIO, PortfolioList, PROPS_TAG, TAG } from '../app/store/types';
-import { Avatar } from '../components/Avatar';
+import { useSelector } from 'react-redux';
+import { selectPortfolios, selectTags } from '../app/store/slices/portfolioSlice';
+import { PROPS_PORTFOLIO, PROPS_TAG } from '../app/store/types';
 import { Card } from '../components/Card';
-import { Like } from '../components/Like';
 
 Modal.setAppElement('#__next');
 
@@ -51,8 +34,16 @@ const Home: NextPage = () => {
     return;
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+    search(e.target.value);
+  };
+
   //tag検索機能
+
+  //tagdataの取得
   const alltagList = tags;
+  //すべのタグからポートフォリオの重複を削除する（初期値の作成）
   const uniqetagList = alltagList.filter(function (x, i, array) {
     return (
       array.findIndex(function (y) {
@@ -60,26 +51,30 @@ const Home: NextPage = () => {
       }) === i
     );
   });
+
   const [inputtagValue, setInputtagValue] = useState('');
   const [tagList, settagList] = useState(uniqetagList);
   const tagsearch = (value: string) => {
     if (value !== '') {
-      const filteredtagList = uniqetagList.filter((tag: PROPS_TAG) => {
+      //すべてのtagから入力値に該当するtagnameの入ったtagを取得する
+      const filteredtagList = alltagList.filter((tag: PROPS_TAG) => {
         return tag.tagname.toString().toLowerCase().includes(value.toLowerCase());
       });
-      settagList(filteredtagList);
+      //filteredtagListからtagPortfolio.idの重複を削除する
+      const filtereduniquetagList = filteredtagList.filter(function (x, i, array) {
+        return (
+          array.findIndex(function (y) {
+            return y.tagPortfolio.id === x.tagPortfolio.id;
+          }) === i
+        );
+      });
+      settagList(filtereduniquetagList);
       return;
     }
 
     settagList(uniqetagList);
     return;
   };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-    search(e.target.value);
-  };
-  //↑ここまで検索機能
 
   const handleChange2 = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputtagValue(e.target.value);
@@ -100,7 +95,7 @@ const Home: NextPage = () => {
               <a
                 className={
                   'p-2 text-xs font-bold uppercase  py-3 shadow-lg rounded block leading-normal ' +
-                  (openTab === 1 ? 'text-black bg-gray-500' : 'text-blueGray-600 bg-white')
+                  (openTab === 1 ? 'text-black bg-gray-300' : 'text-blueGray-600 bg-white')
                 }
                 onClick={(e) => {
                   e.preventDefault();
@@ -114,7 +109,7 @@ const Home: NextPage = () => {
               <a
                 className={
                   'p-2 text-xs font-bold uppercase  py-3 shadow-lg rounded block leading-normal ' +
-                  (openTab === 2 ? 'text-black bg-gray-500' : 'text-blueGray-600 bg-white')
+                  (openTab === 2 ? 'text-black bg-gray-300' : 'text-blueGray-600 bg-white')
                 }
                 onClick={(e) => {
                   e.preventDefault();
