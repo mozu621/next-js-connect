@@ -64,17 +64,13 @@ const Portfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
         <div className='container flex flex-col items-center p-12 mx-auto md:flex-row'>
           <div className='mb-10 w-5/6 md:mb-0 md:w-1/2 lg:w-full lg:max-w-lg'>
             {portfolio.img ? (
-              <Link href={`/editportfolio/${portfolio.id}`} passHref>
-                <img className='object-cover w-full h-64' src={portfolio.img} alt='Article' />
-              </Link>
+              <img className='object-cover w-full h-64' src={portfolio.img} alt='Article' />
             ) : (
-              <Link href={`/editportfolio/${portfolio.id}`} passHref>
-                <img
-                  className='object-contain w-full h-64 border'
-                  src='http://127.0.0.1:8000/media/portfolios/noimage2.png'
-                  alt='Article'
-                />
-              </Link>
+              <img
+                className='object-contain w-full h-64 border'
+                src='http://127.0.0.1:8000/media/portfolios/noimage2.png'
+                alt='Article'
+              />
             )}
           </div>
           <div className='flex flex-col items-center text-center md:items-start md:pl-16 md:w-1/2 md:text-left lg:grow lg:pl-24'>

@@ -20,11 +20,15 @@ import {
 import {
   fetchAsyncNewPortfolio,
   fetchAsyncUpdatePortfolio,
+  selectTags,
   fetchPostEnd,
   fetchPostStart,
+  fetchAsyncPostTag,
+  fetchAsyncGetTags,
   selectPortfolios,
 } from '../../app/store/slices/portfolioSlice';
 import { PROPS_PORTFOLIO, PORTFOLIO, TAG } from '../../app/store/types';
+import { Tag } from '../../components/Tag';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_ENDOPOINT;
 
@@ -35,10 +39,19 @@ interface PortfolioProps {
 const EditPortfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
   const dispatch: AppDispatch = useDispatch();
   const router = useRouter();
-  const openProfile = useSelector(selectOpenProfile);
-  const profile = useSelector(selectProfile);
-  const [image, setImage] = useState(portfolio.img);
-  const Portfolios = useSelector(selectPortfolios);
+  const tags = useSelector(selectTags);
+  const tagsOnPortfolio = tags.filter((tag) => {
+    return tag.tagPortfolio.id === portfolio.id;
+  });
+  const [tagname, setTagname] = useState('');
+
+  const postTag = async (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    const packet = { tagname: tagname, tagPortfolio: portfolio.id };
+    await dispatch(fetchAsyncPostTag(packet));
+    await dispatch(fetchAsyncGetTags());
+    setTagname('');
+  };
 
   //const updateProfile = async (e: React.MouseEvent<HTMLElement>) => {
   //  e.preventDefault();
@@ -131,6 +144,18 @@ const EditPortfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
                   )
                 }
               />
+            </div>
+            <div className=' mb-6 lg:mx-32'>
+              <label className='block my-2 text-base font-medium text-gray-900 dark:text-gray-300'>
+                タグ
+              </label>
+              <div className='flex flex-wrap '>
+                {tagsOnPortfolio.map((tag, i) => (
+                  <div key={i} className='p-0.5'>
+                    <Tag id={tag.id} tagPortfolio={tag.tagPortfolio} tagname={tag.tagname} />
+                  </div>
+                ))}
+              </div>
             </div>
             <button
               className='py-2 px-6 mx-auto mb-5 font-semibold text-white bg-gray-800 hover:bg-gray-900 rounded-full border border-gray-400 shadow'

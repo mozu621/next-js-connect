@@ -36,7 +36,7 @@ const Login: React.FC = () => {
           <p className='pt-2 text-gray-600'>ログイン</p>
         </section>
         <Formik
-          initialErrors={{ email: 'イニシャルエラーが表示されている入力してくださいrequired' }}
+          initialErrors={{ email: 'required' }}
           initialValues={{ email: '', password: '' }}
           onSubmit={async (values) => {
             await dispatch(fetchCredStart());
@@ -78,7 +78,11 @@ const Login: React.FC = () => {
                     className='px-3 pb-3 w-full text-gray-700 bg-gray-200 rounded border-b-4 border-gray-300 focus:border-purple-600 focus:outline-none transition duration-500'
                   />
                 </div>
-                {props.errors.email && <div id='feedback'>{props.errors.email}</div>}
+                {props.errors.email && (
+                  <div id='feedback' className='text-red-700'>
+                    {props.errors.email}
+                  </div>
+                )}
 
                 <button
                   className='py-2 px-4 font-bold bg-blue-500 hover:bg-blue-700 rounded-full '
