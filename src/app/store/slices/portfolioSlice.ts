@@ -11,6 +11,7 @@ const apiUrlPostTag = `${process.env.NEXT_PUBLIC_API_ENDOPOINT}api/tagpost/`;
 const apiUrlLike = `${process.env.NEXT_PUBLIC_API_ENDOPOINT}api/like/`;
 //追加　タグ機能
 const apiUrlFilterTag = `${process.env.NEXT_PUBLIC_API_ENDOPOINT}api/tagfilter/`;
+const apiUrlPopular = `${process.env.NEXT_PUBLIC_API_ENDOPOINT}api/popular/`;
 //　ここまで
 
 export const fetchAsyncGetPortfolios = createAsyncThunk('portfolio/get', async () => {
@@ -75,6 +76,15 @@ export const fetchAsyncDeleteLike = createAsyncThunk(
     return res.data;
   },
 );
+
+export const fetchAsyncGetPopular = createAsyncThunk('popular/get', async () => {
+  const res = await axios.get(apiUrlPopular, {
+    headers: {
+      Authorization: `JWT ${localStorage.localJWT}`,
+    },
+  });
+  return res.data;
+});
 
 //export const fetchAsyncPatchLiked = createAsyncThunk(
 //    "post/patch",
@@ -162,6 +172,16 @@ export const fetchAsyncPostTag = createAsyncThunk('tagpost/post', async (tag: TA
   return res.data;
 });
 
+export const fetchAsyncDeleteTag = createAsyncThunk('tagpost/delete', async (tagid: number) => {
+  const res = await axios.delete(`${apiUrlPostTag}${tagid}/`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `JWT ${localStorage.localJWT}`,
+    },
+  });
+  return res.data;
+});
+
 export const fetchAsyncGetFilterTags = createAsyncThunk(
   'tagfilter/get',
   async (tagname: string) => {
@@ -199,6 +219,7 @@ export const portfolioSlice = createSlice({
     openNewPost: false, //新規登録のモーダルを表示させるSTATE
     openNewComment: false,
     openLikeuser: false,
+    openNewTagPost: false,
     portfolios: [
       {
         id: 0,
@@ -266,6 +287,12 @@ export const portfolioSlice = createSlice({
     },
     resetOpenLikeuser(state) {
       state.openLikeuser = false;
+    },
+    setOpenNewTagPost(state) {
+      state.openNewTagPost = true;
+    },
+    resetOpenNewTagPost(state) {
+      state.openNewTagPost = false;
     },
   },
   extraReducers: (builder) => {
@@ -355,6 +382,8 @@ export const {
   resetOpenNewComment,
   setOpenLikeuser,
   resetOpenLikeuser,
+  setOpenNewTagPost,
+  resetOpenNewTagPost,
 } = portfolioSlice.actions;
 
 export const selectPortfolios = (state: AppState) => state.portfolio.portfolios;
@@ -362,6 +391,7 @@ export const selectLikes = (state: AppState) => state.portfolio.likes;
 export const selectComments = (state: AppState) => state.portfolio.comments;
 export const selectOpenNewCommnet = (state: AppState) => state.portfolio.openNewComment;
 export const selectOpenLikeuser = (state: AppState) => state.portfolio.openLikeuser;
+export const selectOpenNewTagPost = (state: AppState) => state.portfolio.openNewTagPost;
 export const selectTags = (state: AppState) => state.portfolio.tags;
 
 export default portfolioSlice.reducer;

@@ -7,7 +7,7 @@ import { selectComments, selectTags } from '../app/store/slices/portfolioSlice';
 import { PROPS_CARD } from '../app/store/types';
 import { Avatar } from './Avatar';
 import { Like } from './Like';
-import { Tag } from './Tag';
+import { Simpletag } from './Simpletag';
 
 export const Card: React.FC<PROPS_CARD> = ({ title, portfolioid, author, portfolioimg }) => {
   const dispatch: AppDispatch = useDispatch();
@@ -57,7 +57,7 @@ export const Card: React.FC<PROPS_CARD> = ({ title, portfolioid, author, portfol
           </Link>
         )}
         <div className=''>
-          <div className='flex mt-1'>
+          <div className='flex mt-1 '>
             <div className='flex flex-1 ml-2'>
               <Link href={`/portfolio/${portfolioid}`} passHref>
                 <a className='block text-lg font-semibold text-black hover:text-blue-600 '>
@@ -66,7 +66,7 @@ export const Card: React.FC<PROPS_CARD> = ({ title, portfolioid, author, portfol
               </Link>
             </div>
 
-            <div className='flex flex-row mx-auto'>
+            <div className='flex flex-row items-start mx-auto'>
               <Link href={`/portfolio/${portfolioid}`} passHref>
                 <div className='mt-1'>
                   <FaRegComment />
@@ -79,7 +79,7 @@ export const Card: React.FC<PROPS_CARD> = ({ title, portfolioid, author, portfol
           <div className='flex flex-wrap'>
             {tagsOnPortfolio.map((tag, i) => (
               <div key={i}>
-                <Tag id={tag.id} tagPortfolio={tag.tagPortfolio} tagname={tag.tagname} />
+                <Simpletag id={tag.id} tagPortfolio={tag.tagPortfolio} tagname={tag.tagname} />
               </div>
             ))}
           </div>

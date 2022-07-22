@@ -73,11 +73,11 @@ export const Like: React.FC<PROPS_LIKE> = ({ likePortfolio }) => {
     <>
       <button onClick={handlerLike} type='button'>
         {likeusers.includes(myprofile.profileUser) ? (
-          <div className='mb-1 text-rose-500'>
+          <div className='mt-1 text-rose-500'>
             <FaHeart />
           </div>
         ) : (
-          <div>
+          <div className='mt-1'>
             <FaRegHeart />
           </div>
         )}

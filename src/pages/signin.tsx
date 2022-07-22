@@ -85,7 +85,7 @@ const Login: React.FC = () => {
                 )}
 
                 <button
-                  className='py-2 px-4 font-bold bg-blue-500 hover:bg-blue-700 rounded-full '
+                  className='py-2 px-4 font-bold bg-blue-500 hover:bg-blue-700 rounded-full  '
                   type='submit'
                 >
                   ログインする

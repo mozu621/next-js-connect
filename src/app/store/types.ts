@@ -1,5 +1,5 @@
-import { Url } from 'url';
 import { ParsedUrlQuery } from 'node:querystring';
+import { Url } from 'url';
 
 //authslice
 export interface PROPS_AUTHEN {
@@ -47,7 +47,7 @@ export interface PROPS_NICKNAME {
 }
 
 export interface PROPS_LIKE {
-  likePortfolio: number;
+  likePortfolio: Number;
 }
 
 export interface PROPS_AVATER {
@@ -115,4 +115,8 @@ export interface PORTFOLIO {
   url: string;
   content: string;
   img: File | null;
+}
+
+export interface PROPS_LIKEPORTFOLIO {
+  likeportfolioid: number;
 }

@@ -2,7 +2,10 @@ import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
+
 import { useState } from 'react';
+import { FaPlus } from 'react-icons/fa';
+import Modal from 'react-modal';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { AppDispatch } from '../../app/store';
@@ -14,6 +17,9 @@ import {
   fetchAsyncPostTag,
   fetchAsyncGetTags,
   selectTags,
+  setOpenNewTagPost,
+  resetOpenNewTagPost,
+  selectOpenNewTagPost,
 } from '../../app/store/slices/portfolioSlice';
 import { PROPS_PORTFOLIO, TAG } from '../../app/store/types';
 import { Comment } from '../../components/Comment';
@@ -30,6 +36,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
   const comments = useSelector(selectComments);
   const tags = useSelector(selectTags);
   const myprofile = useSelector(selectProfile);
+  const openNewTagPost = useSelector(selectOpenNewTagPost);
 
   const commentsOnPortfolio = comments.filter((comment) => {
     return comment.commentPortfolio === portfolio.id;
@@ -56,10 +63,52 @@ const Portfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
     await dispatch(fetchAsyncPostTag(packet));
     await dispatch(fetchAsyncGetTags());
     setTagname('');
+    await dispatch(resetOpenNewTagPost());
   };
 
   return (
     <>
+      <Modal //isopenにtrue false で表示切り替えができる
+        isOpen={openNewTagPost}
+        onRequestClose={async () => {
+          await dispatch(resetOpenNewTagPost());
+        }}
+        style={{
+          overlay: {
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            backgroundColor: 'rgba(0,0,0,0.65)',
+          },
+          content: {
+            position: 'absolute',
+            top: '15rem',
+            left: '20rem',
+            right: '20rem',
+            bottom: '15rem',
+            borderRadius: '1rem',
+            padding: '1.5rem',
+          },
+        }}
+      >
+        <form>
+          <input
+            type='text'
+            placeholder='add a tag'
+            value={tagname}
+            onChange={(e) => setTagname(e.target.value)}
+          />
+          <button
+            className='py-2 px-4 font-bold bg-red-500 hover:bg-red-700 rounded-full '
+            disabled={!tagname.length}
+            type='button'
+            onClick={postTag}
+          >
+            追加
+          </button>
+        </form>
+      </Modal>
+
       <section className='text-gray-600 '>
         <div className='container flex flex-col items-center p-12 mx-auto md:flex-row'>
           <div className='mb-10 w-5/6 md:mb-0 md:w-1/2 lg:w-full lg:max-w-lg'>
@@ -95,6 +144,16 @@ const Portfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
                   <Tag id={tag.id} tagPortfolio={tag.tagPortfolio} tagname={tag.tagname} />
                 </div>
               ))}
+              {portfolio.author == myprofile.profileUser && (
+                <button
+                  className='p-2 ml-3 align-middle rounded-full border-2 border-gray-400 shadow'
+                  onClick={async () => {
+                    await dispatch(setOpenNewTagPost());
+                  }}
+                >
+                  <FaPlus />
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -103,10 +162,9 @@ const Portfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
       <form className='px-4 pt-2 w-full max-w-xl bg-white rounded-lg'>
         <div className='flex flex-wrap -mx-3 mb-6'>
           <div className='px-3 my-2 w-full md:w-full'>
-            <input
+            <textarea
               className='py-2 px-3 w-full h-20 font-medium leading-normal placeholder:text-gray-700 bg-gray-100 focus:bg-white rounded border border-gray-400 focus:outline-none resize-none'
-              type='text'
-              placeholder='add a comment'
+              placeholder='コメントを入力してください'
               value={text}
               onChange={(e) => setText(e.target.value)}
             />
@@ -119,42 +177,14 @@ const Portfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
                 type='button'
                 onClick={postComment}
               >
-                Post Comment
+                コメントする
               </button>
             </div>
           </div>
         </div>
       </form>
-      <form>
-        <input
-          type='text'
-          placeholder='add a comment'
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        />
-        <button
-          className='py-2 px-4 font-bold bg-blue-500 hover:bg-blue-700 rounded-full '
-          disabled={!text.length}
-          type='button'
-          onClick={postComment}
-        >
-          コメントする
-        </button>
-        <input
-          type='text'
-          placeholder='add a tag'
-          value={tagname}
-          onChange={(e) => setTagname(e.target.value)}
-        />
-        <button
-          className='py-2 px-4 font-bold bg-red-500 hover:bg-red-700 rounded-full '
-          disabled={!tagname.length}
-          type='button'
-          onClick={postTag}
-        >
-          追加
-        </button>
-      </form>
+
+      <div className='m-5 text-2xl font-extrabold text-center'>コメント一覧</div>
       {commentsOnPortfolio.map((comment, i) => (
         <div key={i}>
           <Comment

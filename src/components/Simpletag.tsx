@@ -12,14 +12,7 @@ import {
 } from '../app/store/slices/portfolioSlice';
 import { PROPS_TAG } from '../app/store/types';
 
-export const Tag: React.FC<PROPS_TAG> = ({ tagname, id, tagPortfolio }) => {
-  const dispatch: AppDispatch = useDispatch();
-  const myprofile = useSelector(selectProfile);
-  const deleteTag = async () => {
-    const packet = id;
-    await dispatch(fetchAsyncDeleteTag(packet));
-    await dispatch(fetchAsyncGetTags());
-  };
+export const Simpletag: React.FC<PROPS_TAG> = ({ tagname }) => {
   return (
     <>
       <Link href={`/filter/${tagname}`} passHref>
@@ -27,11 +20,6 @@ export const Tag: React.FC<PROPS_TAG> = ({ tagname, id, tagPortfolio }) => {
           {tagname}
         </button>
       </Link>
-      {myprofile.profileUser === tagPortfolio.author && (
-        <button className=' text-rose-500 align-middle' onClick={deleteTag}>
-          <FaRegTrashAlt />
-        </button>
-      )}
     </>
   );
 };

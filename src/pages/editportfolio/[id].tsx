@@ -1,10 +1,11 @@
 import { Formik } from 'formik';
+
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-
+import { FaRegTrashAlt } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
 import {
@@ -26,6 +27,7 @@ import {
   fetchAsyncPostTag,
   fetchAsyncGetTags,
   selectPortfolios,
+  fetchAsyncDeleteTag,
 } from '../../app/store/slices/portfolioSlice';
 import { PROPS_PORTFOLIO, PORTFOLIO, TAG } from '../../app/store/types';
 import { Tag } from '../../components/Tag';
@@ -73,6 +75,11 @@ const EditPortfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
   const handlerEditPicture = () => {
     const fileInput = document.getElementById('imageInput');
     fileInput?.click();
+  };
+
+  const handleDeleteTag = async (packet) => {
+    await dispatch(fetchAsyncDeleteTag(packet));
+    await dispatch(fetchAsyncGetTags());
   };
 
   return (
@@ -157,6 +164,7 @@ const EditPortfolio: React.FC<PortfolioProps> = ({ portfolio }) => {
                 ))}
               </div>
             </div>
+
             <button
               className='py-2 px-6 mx-auto mb-5 font-semibold text-white bg-gray-800 hover:bg-gray-900 rounded-full border border-gray-400 shadow'
               type='submit'
